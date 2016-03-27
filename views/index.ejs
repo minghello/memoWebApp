@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <head>
+    <title>Memo Web Application</title>
+  </head>
+  <body>
+    <h1>메모웹앱 만들기</h1>
+    <p>짜잔~~</p>
+    <p><%= title%></p>
+    <ul>
+    <% for(var i=0;i<labels.length; i++) { 
+      var list = labels[i];
+    %>
+      <li><%= list.LABEL_ID %></li>
+      <li><%= list.LABEL_NAME %></li>
+    <% } %>
+    <ul>
+  </body>
+</html>

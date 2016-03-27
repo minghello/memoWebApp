@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <title>Memo Web Application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/click.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        // label의 ul > li들..
+        var labelTab = $("#labelTab").children();
+        var memoTab = $("#memoTab").children();
+        
+        
+        console.log("label length :: "+labelTab.length);
+
+        labelTab.click(function(){ // label을 클릭하면.
+          var labelClickIndex = $(labelTab).index(this);
+        console.log("label index :: " + $(labelTab).index(this));
+
+          clickLabel(labelClickIndex);
+
+        });
+
+        memoTab.click(function(){
+          var memoClickIndex = $(memoTab).index(this);
+          clickMemo(memoClickIndex);
+        });
+
+
+      });
+
+    </script>
+
+  </head>
+  <body>
+
+    <div class="page-header">
+      <h1>ming 메모장</h1>
+    </div>
+    <div id="memoLabel">
+      <ul class="list-group" id="labelTab">
+      <% for(var i=0;i<arrLabel.length; i++) { 
+        var labelList = arrLabel[i];
+      %>
+        <li class="list-group-item"><span class="badge">14</span>
+           <%= labelList.LABEL_NAME %>
+        </li>
+      <% } %>
+      </ul>
+    </div>
+
+    <div id="memoList">
+      <ul class="list-group" id="memoTab">
+      <% for(var i=0;i<arrMemo.length; i++) { 
+        var memoList = arrMemo[i];
+      %>
+        <li class="list-group-item">
+           <%= memoList.MEMO_TITLE %>
+        </li>
+      <% } %>
+      </ul>
+    </div>
+    <div id="memoContent">
+      <div class="panel panel-default" id="memoDetail">
+        <div class="panel-heading"><%= arrMemo[0].MEMO_TITLE %></div>
+        <div class="panel-body" id="memo_content">
+          <p><%= arrMemo[0].MEMO_REGDATE %></p>
+          <p><%= arrMemo[0].MEMO_CONTENT %></p>
+        </div>
+      </div>
+      
+      <div>
+        <button class="btn btn-primary" type="button">
+          Edit
+        </button>
+        <button class="btn btn-primary" type="button">
+          Delete
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

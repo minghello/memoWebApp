@@ -1,0 +1,24 @@
+#memoLabel {
+	float: left;
+	width: 200px;
+	height: 500px;
+	border: 1px solid #ddd;
+}
+
+#memoList {
+	float: left;
+	width: 250px;
+	height: 500px;
+	border: 1px solid #ddd;
+}
+
+#memoContent {
+	float: left;
+	width: 500px;
+	height: 500px;
+	border: 1px solid #ddd;
+}
+
+.panel-body {
+	height: 400px;
+}
