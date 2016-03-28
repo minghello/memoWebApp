@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
                 + ' FROM TB_LABEL ';
     	connection.query(strSql, function (err, rows) {
             if (err) console.error("err : " + err);
-            console.log("==========> 라벨 목록 ");
+            console.log("라벨 목록 ==========>>");
             console.log("strSql :: " + strSql);
             console.log("label list :: " + JSON.stringify(rows));
 
@@ -48,7 +48,7 @@ router.get('/', function(req, res, next) {
                 + ' WHERE M.MEMO_ID = LM.MEMO_ID';
             connection.query(strSql, function (err, rows) {
             if (err) console.error("err : " + err);
-            console.log("==========> 라벨 1번일때의 메모들");
+            console.log("라벨 1번일때의 메모들 ==========>>");
             console.log("strSql :: " + strSql);
             console.log("label list :: " + JSON.stringify(rows));
 
@@ -68,7 +68,7 @@ router.get('/', function(req, res, next) {
                 +' ON L.LABEL_ID = LM.LABEL_ID) T GROUP BY T.LABEL_ID';
         connection.query(strSql, function (err, rows) {
             if (err) console.error("err : " + err);
-            console.log("==========> 라벨에 속한 메모들의 갯수");
+            console.log("라벨에 속한 메모들의 갯수 ==========>>");
             console.log("strSql :: " + strSql);
             console.log("label list :: " + JSON.stringify(rows));
 

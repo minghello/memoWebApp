@@ -1,11 +1,11 @@
-function clickLabel(labelClickIndex)
+
+// 라벨을 클릭했을 때..
+function clickLabel(click_LabelID)
 {
 	
-        // 클릭한 라벨의 인덱스
-          
         $.ajax({
             url: 'test',
-            data: {'index' : labelClickIndex},
+            data: {'label_id' : click_LabelID},
             dataType: 'json',
             type: 'GET',
             success: function(data) {
@@ -20,12 +20,18 @@ function clickLabel(labelClickIndex)
             var memoCount = data.length;
             //alert(data.length);
             //console.log("memoTitle :::  "+ data[0].MEMO_TITLE);
-            $("#memoTab li").addClass("list-group-item");
+            //$("#memoTab li").addClass("list-group-item");
 
+            var memoID ='';
             for(var i=0;i<memoCount;i++) {
                 $("#memoTab").append("<li>"+data[i].MEMO_TITLE+"</li>");
+                memoID = data[i].MEMO_ID;
 
-
+                $('#memoList ul li').click(function() {
+                    var memoTabIndex = $('#memoList ul li').index(this);
+                    //clickMemo(labelTabIndex ,memoID);
+                    alert("메모 클릭함..." + "(memoID: "+memoID+")");
+                });
 
    	            //var node = document.createElement("li");                 // Create a <li> node
                 //var textnode = document.createTextNode(data[i].MEMO_TITLE);         // Create a text node

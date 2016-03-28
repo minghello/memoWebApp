@@ -14,24 +14,23 @@ var pool = mysql.createPool({
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+	pool.getConnection(function (err, connection) {
 
-	 console.log('GET 방식으로 서버 호출됨 :  ' + req.query.index);
-	var labelID='';
-	var strQuery='';
-	 pool.getConnection(function (err, connection) {
+		var labelID='';
+		var strSql='';
 
-		labelID = req.query.index; // 클릭한 라벨의 인덱스 - 0, 1, 2, ... 
+		labelID = req.query.label_id; // 클릭한 라벨의 인덱스 - 0, 1, 2, ... 
 
-		strQuery = 'select M.MEMO_TITLE, M.MEMO_CONTENT, M.MEMO_REGDATE from TB_MEMO M, '
-		 		+ '(SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID = '
-		 		+ (Number(labelID)+1) // 라벨인덱스를 숫자로 바꾸고.. 
-		 							  // 라벨아이디는 1부터 시작하니깐 +1을 해준다..
-		 		+ ') LM where M.MEMO_ID = LM.MEMO_ID';
-		console.log("query: " +strQuery);
+		strSql = ' SELECT M.MEMO_ID, M.MEMO_TITLE, M.MEMO_CONTENT, M.MEMO_REGDATE '
+				+ ' FROM TB_MEMO M, '
+		 		+ ' (SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID = ' + Number(labelID) + ' ) LM '	// 라벨인덱스를 숫자로 바꾸고..
+		 		+ ' WHERE M.MEMO_ID = LM.MEMO_ID';
 
-        connection.query(strQuery, function (err, rows) {
-            if (err) console.error("err : " + err);
-            console.log("test page_____ : " + JSON.stringify(rows));
+        connection.query(strSql, function (err, rows) {
+			if (err) console.error("err : " + err);
+            console.log("메모 목록 ==========>>");
+            console.log("strSql :: " + strSql);
+            console.log("memo list :: " + JSON.stringify(rows));
 
 			//res.send('야!!!!!!!!!!' + rows[0].MEMO_TITLE);
 			res.send(rows);
