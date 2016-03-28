@@ -52,17 +52,25 @@
       <h1>ming 메모장</h1>
     </div>
 
-    <div id="memoLabel">
-      <ul class="list-group" id="labelTab">
-      <% for(var i=0;i<arrLabel.length; i++) { 
-        var labelList = arrLabel[i];
-      %>
-        <li class="list-group-item">
-        <span class="badge"><%= arrMemoCount[i].MEMO_CNT %></span>
-           <%= labelList.LABEL_NAME %>
-        </li>
-      <% } %>
-      </ul>
+    <div id="labelArea">
+      
+      <div>
+        <ul class="list-group" id="labelTab">
+        <% for(var i=0;i<arrLabel.length; i++) { 
+          var labelList = arrLabel[i];
+        %>
+          <li class="list-group-item">
+          <span class="badge"><%= arrMemoCount[i].MEMO_CNT %></span>
+             <%= labelList.LABEL_NAME %>
+          </li>
+        <% } %>
+        </ul>
+      </div>
+      
+      <div>
+        <button class="btn btn-primary" type="button">Add New Label</button>
+      </div>
+    
     </div>
 
     <div id="memoList">
