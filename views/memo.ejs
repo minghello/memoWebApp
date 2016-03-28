@@ -51,12 +51,14 @@
     <div class="page-header">
       <h1>ming 메모장</h1>
     </div>
+
     <div id="memoLabel">
       <ul class="list-group" id="labelTab">
       <% for(var i=0;i<arrLabel.length; i++) { 
         var labelList = arrLabel[i];
       %>
-        <li class="list-group-item"><span class="badge">14</span>
+        <li class="list-group-item">
+        <span class="badge"><%= arrMemoCount[i].MEMO_CNT %></span>
            <%= labelList.LABEL_NAME %>
         </li>
       <% } %>
@@ -84,13 +86,10 @@
       </div>
       
       <div>
-        <button class="btn btn-primary" type="button">
-          Edit
-        </button>
-        <button class="btn btn-primary" type="button">
-          Delete
-        </button>
+        <button class="btn btn-primary" type="button">Edit</button>
+        <button class="btn btn-primary" type="button">Delete</button>
       </div>
+
     </div>
   </body>
 </html>
