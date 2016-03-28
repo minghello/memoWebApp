@@ -41,20 +41,22 @@
         // });
 
         // 라벨을 클릭했을 때.. 
-        var labelClickIndex = '';
+        var labelClickIndex = '0';
+        var labelID = 1;
         $('#labelList ul li').click(function() {
             labelClickIndex = $('#labelList ul li').index(this);
             
             // label_id는 1부터 시작, index는 0부터 시작..하므로
             // label_id값을 넘기기 위해서 +1을 해준다..
-            clickLabel(labelClickIndex+1);
+            labelID = Number(labelClickIndex)+1;
+            clickLabel(labelID);
 
             alert("라벨 클릭함..." + "(labelTab click index: "+labelClickIndex+")");
         });
 
         $('#memoList ul li').click(function() {
             var memoClickIndex = $('#memoList ul li').index(this);
-            clickMemo(labelClickIndex, memoClickIndex);
+            clickMemo(labelID, memoClickIndex);
             alert("메모 클릭함..." + "(index: "+memoClickIndex+")");
         }); 
 

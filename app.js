@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var memo = require('./routes/memo');
+var memo_proc = require('./routes/memo_proc');
 var test = require('./routes/test');
 
 var CORS = require('cors')();
@@ -30,6 +31,7 @@ app.use(CORS);
 
 app.use('/', routes);
 app.use('/memo', memo);
+app.use('/memo_proc', memo_proc);
 app.use('/test', test);
 
 // catch 404 and forward to error handler
