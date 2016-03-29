@@ -43,7 +43,7 @@
 
   <body>
     <div class="page-header">
-      <h1>ming 메모장</h1>
+      <h1>MEMO Web Application</h1>
     </div>
 
     <div id="appContent">
@@ -73,15 +73,15 @@
           <li class="list-group-item"><label class="badge">5</label>라벨 10</li>
         </ul>
       </div>
-      <div id="labelBtnArea" class="list-group-item">
+      <div id="labelBtnArea">
         <button class="btn btn-primary" type="button">Add New Label</button>
       </div>
     </div>
 
     <div id="memoArea">
       <!-- 라벨 이름변경/설정/삭제 -->
-      <div id="labeleSet" class="list-group-item">       
-        <label>라벨 1</label>
+      <div id="labeleSet">       
+        <label class="title">라벨 1</label>
         <div id="labelSetBtnArea">
           <button class="btn btn-primary" type="button">
             <span class="glyphicon glyphicon-edit"></span>
@@ -98,68 +98,13 @@
       <div id="memoList" class="mCustomScrollbar memoList" data-mcs-theme="minimal-dark">
         <ul class="list-group">
           <li class="list-group-item">
-            <input type="checkbox">
-              <span class="list-group-item-heading">메모 1</span>
-              <span class="list-group-item-heading">2016-03-29 10:29:11</span>
-              <div class="list-group-item-text">내용 미리보기</div>
-            </input>
+              <input type="checkbox"></input>
+              <label class="list-group-item-heading">메모 1</label>
+              <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+              <div class="list-group-item-text memoPreview">내용 미리보기</div>
           </li>
-          <li class="list-group-item">
-            <input type="checkbox">
-              <span class="list-group-item-heading">메모 1</span>
-              <span class="list-group-item-heading">2016-03-29 10:29:11</span>
-              <div class="list-group-item-text">내용 미리보기</div>
-            </input>
-          </li>
-          <li class="list-group-item">
-            <input type="checkbox">
-              <span class="list-group-item-heading">메모 1</span>
-              <span class="list-group-item-heading">2016-03-29 10:29:11</span>
-              <div class="list-group-item-text">내용 미리보기</div>
-            </input>
-          </li>
-          <li class="list-group-item">
-            <input type="checkbox">
-              <span class="list-group-item-heading">메모 1</span>
-              <span class="list-group-item-heading">2016-03-29 10:29:11</span>
-              <div class="list-group-item-text">내용 미리보기</div>
-            </input>
-          </li>
-          <li class="list-group-item">
-            <input type="checkbox">
-              <span class="list-group-item-heading">메모 1</span>
-              <span class="list-group-item-heading">2016-03-29 10:29:11</span>
-              <div class="list-group-item-text">내용 미리보기</div>
-            </input>
-          </li>
-          <li class="list-group-item">
-            <input type="checkbox">
-              <span class="list-group-item-heading">메모 1</span>
-              <span class="list-group-item-heading">2016-03-29 10:29:11</span>
-              <div class="list-group-item-text">내용 미리보기</div>
-            </input>
-          </li>
-          <li class="list-group-item">
-            <input type="checkbox">
-              <span class="list-group-item-heading">메모 1</span>
-              <span class="list-group-item-heading">2016-03-29 10:29:11</span>
-              <div class="list-group-item-text">내용 미리보기</div>
-            </input>
-          </li>
-          <li class="list-group-item">
-            <input type="checkbox">
-              <span class="list-group-item-heading">메모 1</span>
-              <span class="list-group-item-heading">2016-03-29 10:29:11</span>
-              <div class="list-group-item-text">내용 미리보기</div>
-            </input>
-          </li>
-          <li class="list-group-item">
-            <input type="checkbox">
-              <span class="list-group-item-heading">메모 1</span>
-              <span class="list-group-item-heading">2016-03-29 10:29:11</span>
-              <div class="list-group-item-text">내용 미리보기</div>
-            </input>
-          </li>
+
+
         </ul>
       </div>
 
@@ -167,9 +112,11 @@
 
     <div id="memoDetailArea">
       <div class="panel panel-default" id="memoDetail">
-        <div class="panel-heading">메모 1</div>
+        <div class="panel-heading">
+        <label class="title" id="memoTitle">메모 1</label>
+        <label class="memoUpdateDate" id="memoUpdateDate">메모수정일 2016-03-29 10:29:11</label>
+        </div>
         <div class="panel-body mCustomScrollbar" id="memo_content" data-mcs-theme="minimal-dark">
-          <p>메모수정일 2016-03-29 10:29:11</p>
           <p>내용내용</p>
           <p>내용내용</p>
           <p>내용내용</p>
