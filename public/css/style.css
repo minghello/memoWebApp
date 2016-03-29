@@ -161,13 +161,15 @@
 }
 
 .btn-primary:focus {
-	background-color: #DC7878;
-    border-color: #DC7878;
+	background-color: #FF9090;
+	border-color: #FF9090;
+	outline: none;
 }
 
 .btn-primary:active {
-	background-color: #DC7878;
-    border-color: #DC7878;
+	outline: none !important;
+	background-color: #DC7878 !important;
+    border-color: #DC7878 !important;
 
 }
 
