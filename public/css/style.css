@@ -2,6 +2,7 @@
 	width: 1000px;
 	height: 500px;
 	margin: auto;
+	color: #5F5F5F;
 }
 
 /* label 영역 */
@@ -43,7 +44,7 @@
 #labeleSet>label {
 	position: relative;
     top: 7px;
-    left: 10px;
+    left: 15px;
 
 }
 #labelSetBtnArea {
@@ -93,7 +94,7 @@
 }
 
 #memoTitle {
-	margin-top: 5px;
+	margin-top: 4px;
 }
 .memoUpdateDate {
 	float: right;
@@ -115,6 +116,7 @@
 
 /* bootstrap override */
 .page-header {
+	color: #5F5F5F;
 	text-indent: 50px;
 }
 .list-group-item {
