@@ -1,0 +1,95 @@
+#appContent {
+	width: 1000px;
+	height: 500px;
+	margin: auto;
+}
+
+/* label 영역 */
+#labelArea {
+	float: left;
+	width: 200px;
+	height: 500px;
+	
+}
+
+#labelList {
+	width: inherit;
+	height: 450px;
+}
+
+#labelBtnArea {
+	width: inherit;
+	height: 50px;
+	text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+#labelTab>li:first-child {
+	height: 50px;
+}
+
+/* memo 영역 */
+#labeleSet {
+	width: inherit;
+	height: 50px;
+	vertical-align: middle;
+    display: table-cell;
+}
+
+#labeleSet>label {
+	position: relative;
+    top: 7px;
+    left: 10px;
+
+}
+#labelSetBtnArea {
+	float: right;
+	width: 150px;
+	text-align: center;
+}
+#memoList {
+	width: inherit;
+	height: 450px;
+}
+.list-group-item {
+	border-radius: 0px !important;
+}
+
+
+.memoList {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom: 1px solid #ddd;
+}
+
+#memoArea {
+	float: left;
+	width: 300px;
+
+}
+
+#memoDetail {
+	width: inherit;
+    display: table-cell;
+    text-align: left;
+}
+#memoDetailArea {
+	float: left;
+	width: 500px;
+}
+
+#memoUpdateBtnArea {
+	width: inherit;
+	height: 50px;
+	vertical-align: middle;
+    display: table-cell;
+    padding-left: 10px;
+}
+
+.panel-heading {
+	height: 54px;
+}
+.panel-body {
+	height: 400px;
+}
