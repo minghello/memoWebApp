@@ -66,58 +66,80 @@
 
   </head>
   <body>
-
     <div class="page-header">
-      <h1>ming 메모장</h1>
+      <h1>MEMO Web Application</h1>
     </div>
-
-    <div id="labelArea">
-      
-      <div id="labelList">
-        <ul class="list-group" id="labelTab">
-        <% for(var i=0;i<arrLabel.length; i++) { 
-          var labelList = arrLabel[i];
-        %>
-          <li class="list-group-item">
-          <span class="badge"><%= arrMemoCount[i].MEMO_CNT %></span>
-             <%= labelList.LABEL_NAME %>
-          </li>
-        <% } %>
-        </ul>
-      </div>
-      
-      <div>
-        <button class="btn btn-primary" type="button">Add New Label</button>
-      </div>
-    
-    </div>
-
-    <div id="memoList">
-
-      <ul class="list-group" id="memoTab">
-      <% for(var i=0;i<arrMemo.length; i++) { 
-        var memoList = arrMemo[i];
-      %>
-        <li class="list-group-item">
-           <%= memoList.MEMO_TITLE %>
-        </li>
-      <% } %>
-      </ul>
-    </div>
-    <div id="memoContent">
-      <div class="panel panel-default" id="memoDetail">
-        <div class="panel-heading"><%= arrMemo[0].MEMO_TITLE %></div>
-        <div class="panel-body" id="memo_content">
-          <p><%= arrMemo[0].MEMO_REGDATE %></p>
-          <p><%= arrMemo[0].MEMO_CONTENT %></p>
+    <div id="appContent">
+      <div id="labelArea">
+        <div id="labelList" class="mCustomScrollbar" data-mcs-theme="minimal-dark">
+          <ul class="list-group" id="labelTab">
+            <li>
+              <label class="badge"><%= arrMemoCount[i].MEMO_CNT %></label>
+              전체메모
+            </li>
+          <% for(var i=0;i<arrLabel.length; i++) { 
+            var labelList = arrLabel[i];
+          %>
+            <li class="list-group-item">
+              <label class="badge"><%= arrMemoCount[i].MEMO_CNT %></label>
+              <%= labelList.LABEL_NAME %>
+            </li>
+          <% } %>
+          </ul>
+        </div>
+        <div id="labelBtnArea">
+          <button class="btn btn-primary" type="button">Add New Label</button>
         </div>
       </div>
-      
-      <div>
-        <button class="btn btn-primary" type="button">Edit</button>
-        <button class="btn btn-primary" type="button">Delete</button>
+
+      <div id="memoArea">
+        <!-- 라벨 이름변경/설정/삭제 -->
+        <div id="labeleSet">       
+          <label class="title">라벨 1</label>
+          <div id="labelSetBtnArea">
+            <button class="btn btn-primary" type="button">
+              <span class="glyphicon glyphicon-edit"></span>
+            </button>
+            <button class="btn btn-primary" type="button">
+              <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <button class="btn btn-primary" type="button">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </div>
+        </div>
+
+        <div id="memoList" class="mCustomScrollbar memoList" data-mcs-theme="minimal-dark">
+          <ul class="list-group" id="memoTab">
+          <% for(var i=0;i<arrMemo.length; i++) { 
+            var memoList = arrMemo[i];
+          %>
+            <li class="list-group-item">
+              <input type="checkbox"></input>
+              <label class="list-group-item-heading"><%= memoList.MEMO_TITLE %></label>
+              <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+              <div class="list-group-item-text memoPreview">내용 미리보기</div>
+            </li>
+          <% } %>
+          </ul>
+        </div>
       </div>
 
+      <div id="memoDetailArea">
+        <div class="panel panel-default" id="memoDetail">
+          <div class="panel-heading">
+            <label class="title" id="memoTitle"><%= arrMemo[0].MEMO_TITLE %></label>
+            <label class="memoUpdateDate" id="memoUpdateDate">메모수정일 <%= arrMemo[0].MEMO_REGDATE %></label>
+          </div>
+          <div class="panel-body mCustomScrollbar" id="memo_content" data-mcs-theme="minimal-dark">
+            <p><%= arrMemo[0].MEMO_CONTENT %></p>
+          </div>
+          <div id="memoUpdateBtnArea">
+            <button class="btn btn-primary" type="button">Edit</button>
+            <button class="btn btn-primary" type="button">Delete</button>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
