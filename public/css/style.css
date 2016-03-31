@@ -13,14 +13,12 @@
 	height: 500px;
 	
 }
-
 #labelList {
 	width: inherit;
 	height: 450px;
 	border: 1px solid #ddd;
 	border-bottom: 0px;
 }
-
 #labelBtnArea {
 	width: inherit;
 	height: 50px;
@@ -29,6 +27,14 @@
     vertical-align: middle;
     display: table-cell;
 }
+.dialog-label {
+	position: fixed;
+    top: 30%;
+    left: 40%;
+    width: 300px;
+}
+
+
 
 /* memo 영역 */
 #labeleSet {
@@ -41,7 +47,6 @@
 	vertical-align: middle;
     display: table-cell;
 }
-
 #labeleSet>label {
 	position: relative;
     top: 7px;
@@ -57,13 +62,9 @@
 	width: inherit;
 	height: 450px;
 }
-
-
-
 #memoArea {
 	float: left;
 	width: 300px;
-
 }
 
 

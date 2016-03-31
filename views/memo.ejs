@@ -17,29 +17,10 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
     <script src="js/click.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-
-        // label의 ul > li들..
-        // var labelTab = $("#labelTab").children();
-        // var memoTab = $("#memoTab").children();
-        
-        
-        // console.log("label length :: "+labelTab.length);
-
-        // labelTab.click(function(){ // label을 클릭하면.
-        //   var labelClickIndex = $(labelTab).index(this);
-        // console.log("label index :: " + $(labelTab).index(this));
-
-        //   clickLabel(labelClickIndex);
-
-        // });
-
-        // memoTab.click(function(){
-        //   var memoClickIndex = $(memoTab).index(this);
-        //   clickMemo(memoClickIndex);
-        // });
 
         // 라벨을 클릭했을 때.. 
         var labelClickIndex = '0';
@@ -61,7 +42,7 @@
             alert("메모 클릭함..." + "(index: "+memoClickIndex+")");
         }); 
 
-        $("#addLabel").click(function(){
+        $("#btnAddLabel").click(function(){
             $('div.modal').modal({remote : 'modalTest'});
         });
 
@@ -97,14 +78,14 @@
         </div>
         <div id="labelBtnArea">
           <!-- <a class="btn btn-primary" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" href="modalTest">Small modal</a> -->
-          <button class="btn btn-primary" type="button" id="addLabel">Add New Label</button>
+          <button class="btn btn-primary" type="button" id="btnAddLabel">Add New Label</button>
           <button class="btn btn-primary" type="button">
             <span class="glyphicon glyphicon-cog"></span>
           </button>
         </div>
 
-        <div class="modal fade bs-example-modal-sm" role="dialog" aria-labelledby="mySmallModalLabel">
-          <div class="modal-dialog modal-sm">
+        <div class="modal fade">
+          <div class="modal-dialog dialog-label">
             <div class="modal-content">
               ...
             </div>
