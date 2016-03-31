@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <title>Memo Web Application</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/click.js"></script>
@@ -60,8 +61,15 @@
             alert("메모 클릭함..." + "(index: "+memoClickIndex+")");
         }); 
 
-      });
+        $("#addLabel").click(function(){
+            $('div.modal').modal({remote : 'modalTest'});
+        });
 
+      });
+      
+      
+        
+      
     </script>
 
   </head>
@@ -73,8 +81,8 @@
       <div id="labelArea">
         <div id="labelList" class="mCustomScrollbar" data-mcs-theme="minimal-dark">
           <ul class="list-group" id="labelTab">
-            <li>
-              <label class="badge"><%= arrMemoCount[i].MEMO_CNT %></label>
+            <li class="list-group-item">
+              <label class="badge">30</label>
               전체메모
             </li>
           <% for(var i=0;i<arrLabel.length; i++) { 
@@ -88,9 +96,22 @@
           </ul>
         </div>
         <div id="labelBtnArea">
-          <button class="btn btn-primary" type="button">Add New Label</button>
+          <!-- <a class="btn btn-primary" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" href="modalTest">Small modal</a> -->
+          <button class="btn btn-primary" type="button" id="addLabel">Add New Label</button>
+          <button class="btn btn-primary" type="button">
+            <span class="glyphicon glyphicon-cog"></span>
+          </button>
         </div>
-      </div>
+
+        <div class="modal fade bs-example-modal-sm" role="dialog" aria-labelledby="mySmallModalLabel">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              ...
+            </div>
+          </div>
+        </div>
+          
+        </div>
 
       <div id="memoArea">
         <!-- 라벨 이름변경/설정/삭제 -->
@@ -101,7 +122,7 @@
               <span class="glyphicon glyphicon-edit"></span>
             </button>
             <button class="btn btn-primary" type="button">
-              <span class="glyphicon glyphicon-cog"></span>
+              <span class="glyphicon glyphicon-copy"></span>
             </button>
             <button class="btn btn-primary" type="button">
               <span class="glyphicon glyphicon-trash"></span>

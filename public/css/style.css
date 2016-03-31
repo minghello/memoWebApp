@@ -3,6 +3,7 @@
 	height: 500px;
 	margin: auto;
 	color: #5F5F5F;
+	border-bottom: 1px solid #ddd;
 }
 
 /* label 영역 */
@@ -58,10 +59,6 @@
 }
 
 
-
-.memoList {
-	border-bottom: 1px solid #ddd;
-}
 
 #memoArea {
 	float: left;
@@ -128,7 +125,7 @@
 }
 
 .list-group-item:last-child {
-	border-bottom: 0px solid #ddd !important;
+	/*border-bottom: 1px solid #ddd !important;*/
 }
 
 .panel {

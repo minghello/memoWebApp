@@ -62,7 +62,7 @@ router.get('/', function(req, res, next) {
         });
 
         // 라벨에 속한 메모들의 갯수..
-        strSql = 'SELECT COUNT(MEMO_ID) MEMO_CNT'
+        strSql = 'SELECT COUNT(MEMO_ID) AS MEMO_CNT'
                 +' FROM (SELECT L.LABEL_ID, LM.MEMO_ID FROM TB_LABEL L '
                 +' LEFT OUTER JOIN TB_LABEL_MEMO LM '
                 +' ON L.LABEL_ID = LM.LABEL_ID) T GROUP BY T.LABEL_ID';
