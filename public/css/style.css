@@ -182,3 +182,28 @@ input[type=checkbox] {
     margin-right: 5px;
     margin-top: 1px\9;
     line-height: normal;
+}
+/* modal-dialog */
+
+.modal-header {
+	height: 40px;
+    padding: 0px;
+    padding-left: 20px;
+}
+.modal-body {
+	padding: 0px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.modal-body input {
+	border: none;
+}
+.modal-footer {
+	padding: 5px;
+}
+.close {
+	position: relative;
+    top: 5px;
+    right: 5px;
+}
