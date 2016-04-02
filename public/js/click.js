@@ -77,3 +77,15 @@ function clickMemo(click_LabelID ,memoID)
         }
 	});
 }
+
+function addLabelClick(inputLabel) {
+    $.ajax({
+        url: 'modalTest',
+        data: {'inputLabel' : inputLabel},
+        dataType: 'json',
+        type: 'POST',
+        success: function(data) {
+            alert.log(data);
+        }
+	});    
+}

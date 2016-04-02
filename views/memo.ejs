@@ -14,7 +14,6 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <title>Memo Web Application</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
@@ -45,10 +44,12 @@
         $("#btnAddLabel").click(function(){
             $('div.modal').modal({remote : 'modalTest'});
         });
-
+        
+        
+        
+        
       });
-      
-      
+
         
       
     </script>
@@ -66,9 +67,9 @@
               <label class="badge">30</label>
               전체메모
             </li>
-          <% for(var i=0;i<arrLabel.length; i++) { 
-            var labelList = arrLabel[i];
-          %>
+            <% for(var i=0;i<arrLabel.length; i++) { 
+              var labelList = arrLabel[i];
+            %>
             <li class="list-group-item">
               <label class="badge"><%= arrMemoCount[i].MEMO_CNT %></label>
               <%= labelList.LABEL_NAME %>
@@ -87,7 +88,7 @@
         <div class="modal fade">
           <div class="modal-dialog dialog-label">
             <div class="modal-content">
-              ...
+              <!-- 모달 영역 -->
             </div>
           </div>
         </div>
@@ -130,11 +131,11 @@
       <div id="memoDetailArea">
         <div class="panel panel-default" id="memoDetail">
           <div class="panel-heading">
-            <label class="title" id="memoTitle"><%= arrMemo[0].MEMO_TITLE %></label>
-            <label class="memoUpdateDate" id="memoUpdateDate">메모수정일 <%= arrMemo[0].MEMO_REGDATE %></label>
+            <label class="title" id="memoTitle"></label>
+            <label class="memoUpdateDate" id="memoUpdateDate">메모수정일</label>
           </div>
           <div class="panel-body mCustomScrollbar" id="memo_content" data-mcs-theme="minimal-dark">
-            <p><%= arrMemo[0].MEMO_CONTENT %></p>
+            <p></p>
           </div>
           <div id="memoUpdateBtnArea">
             <button class="btn btn-primary" type="button">Edit</button>

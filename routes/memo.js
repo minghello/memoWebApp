@@ -42,7 +42,7 @@ router.get('/', function(req, res, next) {
 
 
         // 처음 화면은.. 라벨이 1번 상태로 열리므로 라벨 1번일때의 메모들을 가져온다...
-        strSql = ' SELECT M.MEMO_TITLE, M.MEMO_CONTENT, M.MEMO_REGDATE '
+        strSql = ' SELECT M.MEMO_ID, M.MEMO_TITLE, M.MEMO_CONTENT, M.MEMO_REG_DATE '
                 + ' FROM TB_MEMO M, '
                 + ' (SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID = 1) LM '
                 + ' WHERE M.MEMO_ID = LM.MEMO_ID';
