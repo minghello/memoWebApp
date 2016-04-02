@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h4>Add New Label</h4>
+</div>
+<div class="modal-body">
+    <input id="inputLabel" type="text" placeholder="아무거나 입력…">
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" id="btnAddSubmit">Add</button>
+    <button class="btn" data-dismiss="modal">Close</button>
+</div>
+<script>
+    
+$(function(){
+    $("#btnAddSubmit").click(function() {
+        console.log("되라!!!!");
+        var inputLabel = $.trim($("#inputLabel").val()); 
+        //var inputLabel = $("#inputLabel").val();
+        console.log(inputLabel);
+        if(inputLabel=="") {
+            alert("라벨을 입력하세요.");    
+        } else {
+            addLabelClick(inputLabel);
+        }
+    });
+
+
+});
+</script>

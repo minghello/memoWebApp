@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <title>Memo Web Application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/click.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        // 라벨을 클릭했을 때.. 
+        var labelClickIndex = '0';
+        var labelID = 1;
+        $('#labelList ul li').click(function() {
+            labelClickIndex = $('#labelList ul li').index(this);
+            
+            // label_id는 1부터 시작, index는 0부터 시작..하므로
+            // label_id값을 넘기기 위해서 +1을 해준다..
+            labelID = Number(labelClickIndex)+1;
+            clickLabel(labelID);
+
+            alert("라벨 클릭함..." + "(labelTab click index: "+labelClickIndex+")");
+        });
+
+        $('#memoList ul li').click(function() {
+            var memoClickIndex = $('#memoList ul li').index(this);
+            clickMemo(labelID, memoClickIndex);
+            alert("메모 클릭함..." + "(index: "+memoClickIndex+")");
+        }); 
+
+        $("#btnAddLabel").click(function(){
+            $('div.modal').modal({remote : 'modalTest'});
+        });
+        
+        
+        
+        
+      });
+
+        
+      
+    </script>
+
+  </head>
+  <body>
+    <div class="page-header">
+      <h1>MEMO Web Application</h1>
+    </div>
+    <div id="appContent">
+      <div id="labelArea">
+        <div id="labelList" class="mCustomScrollbar" data-mcs-theme="minimal-dark">
+          <ul class="list-group" id="labelTab">
+            <li class="list-group-item">
+              <label class="badge">30</label>
+              전체메모
+            </li>
+            <% for(var i=0;i<arrLabel.length; i++) { 
+              var labelList = arrLabel[i];
+            %>
+            <li class="list-group-item">
+              <label class="badge"><%= arrMemoCount[i].MEMO_CNT %></label>
+              <%= labelList.LABEL_NAME %>
+            </li>
+          <% } %>
+          </ul>
+        </div>
+        <div id="labelBtnArea">
+          <!-- <a class="btn btn-primary" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" href="modalTest">Small modal</a> -->
+          <button class="btn btn-primary" type="button" id="btnAddLabel">Add New Label</button>
+          <button class="btn btn-primary" type="button">
+            <span class="glyphicon glyphicon-cog"></span>
+          </button>
+        </div>
+
+        <div class="modal fade">
+          <div class="modal-dialog dialog-label">
+            <div class="modal-content">
+              <!-- 모달 영역 -->
+            </div>
+          </div>
+        </div>
+          
+        </div>
+
+      <div id="memoArea">
+        <!-- 라벨 이름변경/설정/삭제 -->
+        <div id="labeleSet">       
+          <label class="title">라벨 1</label>
+          <div id="labelSetBtnArea">
+            <button class="btn btn-primary" type="button">
+              <span class="glyphicon glyphicon-edit"></span>
+            </button>
+            <button class="btn btn-primary" type="button">
+              <span class="glyphicon glyphicon-copy"></span>
+            </button>
+            <button class="btn btn-primary" type="button">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </div>
+        </div>
+
+        <div id="memoList" class="mCustomScrollbar memoList" data-mcs-theme="minimal-dark">
+          <ul class="list-group" id="memoTab">
+          <% for(var i=0;i<arrMemo.length; i++) { 
+            var memoList = arrMemo[i];
+          %>
+            <li class="list-group-item">
+              <input type="checkbox"></input>
+              <label class="list-group-item-heading"><%= memoList.MEMO_TITLE %></label>
+              <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+              <div class="list-group-item-text memoPreview">내용 미리보기</div>
+            </li>
+          <% } %>
+          </ul>
+        </div>
+      </div>
+
+      <div id="memoDetailArea">
+        <div class="panel panel-default" id="memoDetail">
+          <div class="panel-heading">
+            <label class="title" id="memoTitle"></label>
+            <label class="memoUpdateDate" id="memoUpdateDate">메모수정일</label>
+          </div>
+          <div class="panel-body mCustomScrollbar" id="memo_content" data-mcs-theme="minimal-dark">
+            <p></p>
+          </div>
+          <div id="memoUpdateBtnArea">
+            <button class="btn btn-primary" type="button">Edit</button>
+            <button class="btn btn-primary" type="button">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
