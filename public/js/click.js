@@ -84,8 +84,8 @@ function addLabelClick(inputLabel) {
         data: {'inputLabel' : inputLabel},
         dataType: 'json',
         type: 'POST',
-        success: function(data) {
-            alert.log(data);
+        success: function() {
+            window.location.reload();
         }
 	});    
 }
