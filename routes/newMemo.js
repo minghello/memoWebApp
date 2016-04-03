@@ -12,8 +12,10 @@ var pool = mysql.createPool({
 });
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-	res.render("newMemo",{});
+router.get('/:labelID', function(req, res, next) {
+    var label_id=req.params.labelID;
+    console.log("id :::::::::" +  label_id);
+	res.render("newMemo",{label_id : label_id});
 });
 
 /* POST 호출 처리 */
@@ -25,24 +27,40 @@ router.post('/', function(req, res, next) {
         var strSql='';
         var inputTitle = '';
         var inputContent = '';
+        var labelID = '';
         inputTitle = req.body.inputTitle;
         inputContent = req.body.inputContent;
+        labelID = req.body.labelID;
+        
+        console.log("inputTitle ----------------->> " + inputTitle);
+        console.log("inputContent ----------------->> " + inputContent);
+        console.log("labelID ----------------->> " + labelID);
         
         strSql = " INSERT INTO TB_MEMO (MEMO_TITLE, MEMO_CONTENT, MEMO_REG_DATE, MEMO_UPDATE_DATE) "
-                + " VALUES (?, ?, SYSDATE(), NULL) ";
-		 connection.query(strSql, inputTitle, inputContent, function (err, results) {
+                + " VALUES ( '"
+                + inputTitle + "', '"
+                + inputContent
+                + "', SYSDATE(), NULL) ";
+		connection.query(strSql, function (err, results) {
 			if (err) console.error("err : " + err);
-            console.log("INSERT MEMO:: ==========>>");
+			
+            console.log("INSERT MEMO:::::::::::::::: ==========>>");
+            console.log("strSql :: " + strSql);
+            
+			//connection.release();
+        });
+        
+        strSql = "INSERT INTO TB_LABEL_MEMO (LABEL_ID, MEMO_ID) VALUES "
+                + "( ? , "
+                + "(SELECT MEMO_ID FROM TB_MEMO ORDER BY MEMO_ID DESC LIMIT 1)"
+                +")";
+		 connection.query(strSql, labelID, function (err, results) {
+			if (err) console.error("err : " + err);
+            console.log("INSERT LABEL_MEMO:: ==========>>");
             console.log("strSql :: " + strSql);
 			
             connection.release();
         });
-        
-        strSql = "INSERT INTO TB_LABEL_MEMO (LABEL_ID, MEMO_ID) VALUES("
-                + //라벨아이디
-                + "(SELECT MEMO_ID FROM TB_MEMO ORDER BY MEMO_ID DESC LIMIT 1)"
-                +")";
-		
 		
 	});
     

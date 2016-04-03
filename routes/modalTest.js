@@ -35,7 +35,7 @@ router.post('/', function(req, res, next) {
             
 			console.log(results);
 			
-
+            res.status(200).send("success");
             connection.release();
 
             // Don't use the connection here, it has been returned to the pool.

@@ -11,7 +11,10 @@ var pool = mysql.createPool({
     password: '1234'
 });
 
-
+var arrLabel = new Array();
+var arrFirstLabelMemo = new Array();
+var arrMemoCount = new Array();
+        
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	pool.getConnection(function (err, connection) {
@@ -19,9 +22,7 @@ router.get('/', function(req, res, next) {
 
         var strSql = '';
 
-    	var arrLabel = new Array();
-        var arrFirstLabelMemo = new Array();
-        var arrMemoCount = new Array();
+    	
 
         // 라벨 목록 가져오기
         strSql = ' SELECT LABEL_ID, LABEL_NAME '
@@ -113,5 +114,36 @@ router.get('/', function(req, res, next) {
     });
 });
 
+
+/* POST 호출 처리 */
+router.post('/', function(req, res, next) {
+    console.log('memo.js :::::::POST 방식으로 서버 호출됨');
+    
+    pool.getConnection(function (err, connection) {
+        if (err) console.error("err : " + err);
+		
+		var inputLabel = "";
+		inputLabel=req.body.inputLabel;
+		var strSql='';
+        console.log(inputLabel);
+		strSql = ' INSERT INTO TB_LABEL (LABEL_NAME) VALUES ( ? ) ';
+
+        connection.query(strSql, inputLabel,  function (err, results) {
+			if (err) console.error("err : " + err);
+            console.log("INSERT LABEL:: ==========>>");
+            console.log("strSql :: " + strSql);
+            
+			console.log(results);
+			
+            res.status(200).send(arrMemoCount);
+
+            connection.release();
+            
+            // Don't use the connection here, it has been returned to the pool.
+        });
+		
+	});
+    
+});
 
 module.exports = router;

@@ -80,21 +80,49 @@ function clickMemo(click_LabelID ,memoID)
 
 function addLabelClick(inputLabel) {
     $.ajax({
-        url: 'modalTest',
+        url: 'memo',
         data: {'inputLabel' : inputLabel},
         dataType: 'json',
         type: 'POST',
-        success: function() {
-            alert("라벨추가 완료");
+        success: function(data) {
+            
+            console.log(data.length);
+            var index = Number(data.length)-1;
+            // console.log("sssss");
+            $("#labelModal").modal('hide');
+            var indexValue = $("#labelTab li").last().val();
+            console.log(indexValue);
+            
+            $("#labelTab").append("<li><label>"+data[index].MEMO_CNT+"</label>"
+                                    +"<div>"+inputLabel+"</div>"
+                                    +"</li>");
+            $("#labelTab li").addClass("list-group-item");
+            $("#labelTab li").last().attr("value", indexValue+1);
+            $("#labelTab label").addClass("badge");
+            
+            // 다시 이벤트 줌
+            $('#labelList ul li').click(function() {
+          
+                labelClickIndex = $('#labelList ul li').index(this);
+                //$("#labelList ul li:eq(3)").val()
+                
+                var labelText = $("#labelList ul li:eq("+labelClickIndex+") div").text();
+                $("#selectLabel").text(labelText);
+                
+                labelID = $("#labelList ul li:eq("+labelClickIndex+")").val();
+                $("li").removeClass('selected');
+                $(this).addClass('selected');
+                
+                clickLabel(labelID);
+            });
         }
 	});    
 }
 
-function newMemoClick(inputTitle, inputContent) {
+function newMemoClick(labelID, inputTitle, inputContent) {
     $.ajax({
        url: 'newMemo',
-       data: {'inputTitle' : inputTitle, 'inputContent' : inputContent},
-       dataType: 'json',
+       data: {'labelID': labelID, 'inputTitle' : inputTitle, 'inputContent' : inputContent},
        type: 'POST',
        success: function() {
            alert("메모 추가 완료!!");
