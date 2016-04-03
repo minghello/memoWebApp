@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h4>New Memo</h4>
+</div>
+<div class="modal-body">
+    <input id="inputMemoTitle" type="text" placeholder="메모 제목을 입력하세요.">
+    <textarea id="inputMemoContent" type="text" placeholder="내용을 입력하세요."></textarea>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" id="btnMemoReg">REG</button>
+    <button class="btn" data-dismiss="modal">Close</button>
+</div>
+<script>
+    
+$(function(){
+    $("#btnMemoReg").click(function() {
+        console.log("되라!!!!");
+        //console.log(labelID);
+        var inputTitle = $.trim($("#inputMemoTitle").val());
+        var inputContent = $("#inputMemoContent").val();
+        console.log("title :: "+ inputTitle);
+        console.log("content :: "+ inputContent);
+        
+       // newMemoClick(inputTitle, inputContent);
+        
+        window.location.reload();
+    });
+
+
+});
+</script>

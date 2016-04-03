@@ -9,30 +9,47 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <title>Memo Web Application</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/click.js"></script>
     <script type="text/javascript">
+        $(window).load(function(){
+            $("#labelList").mCustomScrollbar();
+        });
         $(document).ready(function() {
-
+        
+        
+        //처음화면은 1번째 라벨의 1번째 메모를 보여줌..
+        $("#labelList ul li:eq(1)").addClass('selected');
+        
         // 라벨을 클릭했을 때.. 
-        var labelClickIndex = '0';
-        var labelID = 1;
+        var labelClickIndex = '';
+        var labelID = $("#labelList ul li:eq(1)").val();
+        
+        
         $('#labelList ul li').click(function() {
+          
             labelClickIndex = $('#labelList ul li').index(this);
+            //$("#labelList ul li:eq(3)").val()
             
-            // label_id는 1부터 시작, index는 0부터 시작..하므로
-            // label_id값을 넘기기 위해서 +1을 해준다..
-            labelID = Number(labelClickIndex)+1;
+            var labelText = $("#labelList ul li:eq("+labelClickIndex+") div").text();
+            $("#selectLabel").text(labelText);
+            
+            
+            labelID = $("#labelList ul li:eq("+labelClickIndex+")").val();
+            $("li").removeClass('selected');
+            $(this).addClass('selected');
+            
             clickLabel(labelID);
 
-            alert("라벨 클릭함..." + "(labelTab click index: "+labelClickIndex+")");
+            alert("라벨 클릭함..." + "(label_id: "+labelID+")");
         });
 
         $('#memoList ul li').click(function() {
@@ -40,12 +57,17 @@
             clickMemo(labelID, memoClickIndex);
             alert("메모 클릭함..." + "(index: "+memoClickIndex+")");
         }); 
-
+        
+        
+        // Add New Label 버튼
         $("#btnAddLabel").click(function(){
-            $('div.modal').modal({remote : 'modalTest'});
+            $('div.labelModal').modal({remote : 'modalTest'});
         });
         
-        
+        // 새 메모 쓰기..
+        $("#btnNewMemo").click(function(){
+            $('div.memoModal').modal({remote : 'newMemo'});
+        });
         
         
       });
@@ -70,9 +92,9 @@
             <% for(var i=0;i<arrLabel.length; i++) { 
               var labelList = arrLabel[i];
             %>
-            <li class="list-group-item">
+            <li class="list-group-item" value="<%= labelList.LABEL_ID %>">
               <label class="badge"><%= arrMemoCount[i].MEMO_CNT %></label>
-              <%= labelList.LABEL_NAME %>
+              <div><%= labelList.LABEL_NAME %></div>
             </li>
           <% } %>
           </ul>
@@ -80,42 +102,25 @@
         <div id="labelBtnArea">
           <!-- <a class="btn btn-primary" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" href="modalTest">Small modal</a> -->
           <button class="btn btn-primary" type="button" id="btnAddLabel">Add New Label</button>
-          <button class="btn btn-primary" type="button">
-            <span class="glyphicon glyphicon-cog"></span>
+          <button class="btn btn-primary glyphicon glyphicon-cog" type="button">
           </button>
         </div>
-
-        <div class="modal fade">
-          <div class="modal-dialog dialog-label">
-            <div class="modal-content">
-              <!-- 모달 영역 -->
-            </div>
-          </div>
-        </div>
-          
         </div>
 
       <div id="memoArea">
         <!-- 라벨 이름변경/설정/삭제 -->
         <div id="labeleSet">       
-          <label class="title">라벨 1</label>
-          <div id="labelSetBtnArea">
-            <button class="btn btn-primary" type="button">
-              <span class="glyphicon glyphicon-edit"></span>
-            </button>
-            <button class="btn btn-primary" type="button">
-              <span class="glyphicon glyphicon-copy"></span>
-            </button>
-            <button class="btn btn-primary" type="button">
-              <span class="glyphicon glyphicon-trash"></span>
-            </button>
+          <label class="title" id="selectLabel"><%= arrLabel[0].LABEL_NAME %></label>
+          <div id="memoBtnArea">
+            <button class="btn btn-primary glyphicon glyphicon-edit" id="btnNewMemo"></button>
+            <button class="btn btn-primary glyphicon glyphicon-trash"></button>
           </div>
         </div>
 
         <div id="memoList" class="mCustomScrollbar memoList" data-mcs-theme="minimal-dark">
           <ul class="list-group" id="memoTab">
-          <% for(var i=0;i<arrMemo.length; i++) { 
-            var memoList = arrMemo[i];
+          <% for(var i=0;i<arrFirstLabelMemo.length; i++) { 
+            var memoList = arrFirstLabelMemo[i];
           %>
             <li class="list-group-item">
               <input type="checkbox"></input>
@@ -143,6 +148,24 @@
           </div>
         </div>
       </div>
+      <!-- 라베추가 모달 -->
+      <div class="modal fade labelModal">
+        <div class="modal-dialog dialog-label">
+          <div class="modal-content">
+            <!-- 모달 영역 -->
+          </div>
+        </div>
+      </div>
+      <!--새메모 모달-->
+      <div class="modal fade memoModal">
+        <div class="modal-dialog dialog-newMemo">
+          <div class="modal-content">
+            <!-- 모달 영역 -->
+          </div>
+        </div>
+      </div>
+      
+      
     </div>
   </body>
 </html>

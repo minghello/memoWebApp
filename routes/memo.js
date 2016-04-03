@@ -20,19 +20,26 @@ router.get('/', function(req, res, next) {
         var strSql = '';
 
     	var arrLabel = new Array();
-        var arrMemo = new Array();
+        var arrFirstLabelMemo = new Array();
         var arrMemoCount = new Array();
 
         // 라벨 목록 가져오기
         strSql = ' SELECT LABEL_ID, LABEL_NAME '
-                + ' FROM TB_LABEL ';
+                + ' FROM TB_LABEL ORDER BY LABEL_ID ASC';
+        
+        var firstLabel = '';
     	connection.query(strSql, function (err, rows) {
             if (err) console.error("err : " + err);
             console.log("라벨 목록 ==========>>");
             console.log("strSql :: " + strSql);
             console.log("label list :: " + JSON.stringify(rows));
-
+            
             arrLabel = rows;
+            
+            var jsonResult = JSON.stringify(arrLabel);
+            var parseResult = JSON.parse(jsonResult);
+            
+            firstLabel = parseResult[0].LABEL_ID;
 
             //res.render('memo', {arrLabel: arrLabel});
             //connection.release();
@@ -62,10 +69,12 @@ router.get('/', function(req, res, next) {
             // Don't use the connection here, it has been returned to the pool.
         });
 
-        // 처음 화면은.. 라벨이 1번 상태로 열리므로 라벨 1번일때의 메모들을 가져온다...
-        strSql = ' SELECT M.MEMO_ID, M.MEMO_TITLE, M.MEMO_CONTENT, M.MEMO_REG_DATE '
+        // 처음 화면은.. 라벨아이디 오름차순으로 열리므로 라벨목록의 첫번째 메모들을 가져온다...
+        strSql = ' SELECT M.MEMO_ID, M.MEMO_TITLE, M.MEMO_CONTENT, M.MEMO_REG_DATE, M.MEMO_UPDATE_DATE '
                 + ' FROM TB_MEMO M, '
-                + ' (SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID = 1) LM '
+                + ' (SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID = '
+                + Number(firstLabel)
+                + ') LM '
                 + ' WHERE M.MEMO_ID = LM.MEMO_ID';
         connection.query(strSql, function (err, rows) {
             if (err) console.error("err : " + err);
@@ -73,7 +82,7 @@ router.get('/', function(req, res, next) {
             console.log("strSql :: " + strSql);
             console.log("label list :: " + JSON.stringify(rows));
 
-            arrMemo = rows;
+            arrFirstLabelMemo = rows;
 
             //res.render('memo', {arrLabel: arrLabel, arrMemo: arrMemo});
     
@@ -95,7 +104,7 @@ router.get('/', function(req, res, next) {
 
             arrMemoCount = rows;
 
-            res.render('memo', {arrLabel: arrLabel, arrMemo: arrMemo, arrMemoCount: arrMemoCount, memoCount:memoCount});
+            res.render('memo', {arrLabel: arrLabel, arrFirstLabelMemo: arrFirstLabelMemo, arrMemoCount: arrMemoCount, memoCount:memoCount});
     
             connection.release();
 

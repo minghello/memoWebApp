@@ -27,12 +27,7 @@
     vertical-align: middle;
     display: table-cell;
 }
-.dialog-label {
-	position: fixed;
-    top: 30%;
-    left: 40%;
-    width: 300px;
-}
+
 
 
 
@@ -53,9 +48,9 @@
     left: 15px;
 
 }
-#labelSetBtnArea {
+#memoBtnArea {
 	float: right;
-	width: 150px;
+	width: 100px;
 	text-align: center;
 }
 #memoList {
@@ -111,6 +106,11 @@
 	margin: 0px;
 }
 
+/* 선택했을때.. */
+li.selected {
+	font-weight: bold;
+	font-size: larger;
+}
 
 /* bootstrap override */
 .page-header {
@@ -184,17 +184,44 @@ input[type=checkbox] {
     line-height: normal;
 }
 /* modal-dialog */
+/* 라벨추가 모달 크기 */
+.dialog-label {
+	position: fixed;
+    top: 30%;
+    left: 40%;
+    width: 300px;
+}
+.dialog-newMemo {
+	position: fixed;
+	top: 10%;
+	left: 30%;
+	width: 500px;
+}
 
+#inputLabel {
+	width: 268px;
+	height: 30px;
+}
+
+#inputMemoTitle {
+	width: 468px;
+	height: 30px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+}
+#inputMemoContent {
+	width: 468px;
+	height: 350px;
+	border: 1px solid #ddd;
+	resize: none;
+}
 .modal-header {
 	height: 40px;
     padding: 0px;
     padding-left: 20px;
 }
 .modal-body {
-	padding: 0px;
-    padding-left: 20px;
-    padding-top: 20px;
-    padding-bottom: 10px;
+
 }
 .modal-body input {
 	border: none;

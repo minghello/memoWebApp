@@ -20,12 +20,13 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     console.log('POST 방식으로 서버 호출됨');
     pool.getConnection(function (err, connection) {
-
+        if (err) console.error("err : " + err);
+		
 		var inputLabel = "";
 		inputLabel=req.body.inputLabel;
 		var strSql='';
         console.log(inputLabel);
-		strSql = ' INSERT INTO TB_LABEL (`LABEL_NAME`) VALUES ( ? ) ';
+		strSql = ' INSERT INTO TB_LABEL (LABEL_NAME) VALUES ( ? ) ';
 
         connection.query(strSql, inputLabel,  function (err, results) {
 			if (err) console.error("err : " + err);
@@ -33,7 +34,7 @@ router.post('/', function(req, res, next) {
             console.log("strSql :: " + strSql);
             
 			console.log(results);
-			res.send(200, "success");
+			
 
             connection.release();
 

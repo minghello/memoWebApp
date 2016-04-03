@@ -4,7 +4,7 @@ function clickLabel(click_LabelID)
 {
 	
         $.ajax({
-            url: 'test',
+            url: 'memo_proc',
             data: {'label_id' : click_LabelID},
             dataType: 'json',
             type: 'GET',
@@ -50,7 +50,7 @@ function clickMemo(click_LabelID ,memoID)
         // 클릭한 라벨의 인덱스
           
     $.ajax({
-        url: 'test/memo',
+        url: 'memo_proc/memo',
         data: {'label_id' : click_LabelID, 'memo_id' : memoID},
         dataType: 'json',
         type: 'GET',
@@ -85,7 +85,19 @@ function addLabelClick(inputLabel) {
         dataType: 'json',
         type: 'POST',
         success: function() {
-            window.location.reload();
+            alert("라벨추가 완료");
         }
 	});    
+}
+
+function newMemoClick(inputTitle, inputContent) {
+    $.ajax({
+       url: 'newMemo',
+       data: {'inputTitle' : inputTitle, 'inputContent' : inputContent},
+       dataType: 'json',
+       type: 'POST',
+       success: function() {
+           alert("메모 추가 완료!!");
+       }
+    });
 }

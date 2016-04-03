@@ -10,6 +10,7 @@ var memo = require('./routes/memo');
 var memo_proc = require('./routes/memo_proc');
 var test = require('./routes/test');
 var modalTest = require('./routes/modalTest');
+var newMemo = require('./routes/newMemo');
 
 var CORS = require('cors')();
 
@@ -35,6 +36,8 @@ app.use('/memo', memo);
 app.use('/memo_proc', memo_proc);
 app.use('/test', test);
 app.use('/modalTest', modalTest);
+app.use('/newMemo', newMemo);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

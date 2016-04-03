@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 
 		labelID = req.query.label_id; // 클릭한 라벨의 인덱스 - 0, 1, 2, ... 
 
-		strSql = ' SELECT M.MEMO_ID, M.MEMO_TITLE, M.MEMO_CONTENT, M.MEMO_REGDATE '
+		strSql = ' SELECT M.MEMO_ID, M.MEMO_TITLE, M.MEMO_CONTENT, M.MEMO_REG_DATE '
 				+ ' FROM TB_MEMO M, '
 		 		+ ' (SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID = ' + Number(labelID) + ' ) LM '	// 라벨인덱스를 숫자로 바꾸고..
 		 		+ ' WHERE M.MEMO_ID = LM.MEMO_ID';
@@ -55,7 +55,7 @@ router.get('/memo', function(req, res, next) {
 	labelID = req.query.label_id ; // 클릭한 라벨의 아이디 : 1, 2, ...
 	memoID = req.query.memo_id;		// 메모들의 아이디
 
-	strSql = ' SELECT M.MEMO_TITLE, M.MEMO_CONTENT, M.MEMO_REGDATE '
+	strSql = ' SELECT M.MEMO_TITLE, M.MEMO_CONTENT, M.MEMO_REG_DATE '
 			+ ' FROM TB_MEMO M, '
 	 		+ ' (SELECT MEMO_ID '
 	 		+ ' 	FROM TB_LABEL_MEMO '
