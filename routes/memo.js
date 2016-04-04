@@ -11,10 +11,7 @@ var pool = mysql.createPool({
     password: '1234'
 });
 
-var arrLabel = new Array();
-var arrFirstLabelMemo = new Array();
-var arrMemoCount = new Array();
-        
+var memoCount = '';
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	pool.getConnection(function (err, connection) {
@@ -37,7 +34,7 @@ router.get('/', function(req, res, next) {
         });
         
         // 전체 메모 갯수 가져오기..
-        var allMemoCount = "";
+        var allMemoCount='';
         strSql = ' SELECT COUNT(MEMO_ID) AS CNT FROM TB_MEMO ';
         connection.query(strSql, function (err, result) {
             if (err) console.error("err : " + err);
@@ -72,7 +69,7 @@ router.get('/', function(req, res, next) {
         });
 
         // 라벨에 속한 메모들의 갯수..
-        var memoCount = '';
+        
         strSql = 'SELECT COUNT(MEMO_ID) AS MEMO_CNT'
                 +' FROM (SELECT L.LABEL_ID, LM.MEMO_ID FROM TB_LABEL L '
                 +' LEFT OUTER JOIN TB_LABEL_MEMO LM '
@@ -95,11 +92,18 @@ router.get('/', function(req, res, next) {
 
 
 /* POST 호출 처리 */
-router.post('/', function(req, res, next) {
+router.post('/addNewLabel', function(req, res, next) {
     console.log('memo.js :::::::POST 방식으로 서버 호출됨');
     
     pool.getConnection(function (err, connection) {
         if (err) console.error("err : " + err);
+		
+// 		console.log("path: "+req.path);
+// 		console.log("baseUrl: "+req.baseUrl);
+// 		console.log("originalUrl: "+req.originalUrl);
+		
+		//res.location(req.baseUrl).send(memoCount);
+		//console.log('memoCount'+JSON.stringify(memoCount));
 		
 		var inputLabel = "";
 		inputLabel=req.body.inputLabel;
@@ -109,16 +113,14 @@ router.post('/', function(req, res, next) {
 
         connection.query(strSql, inputLabel,  function (err, results) {
 			if (err) console.error("err : " + err);
+			
             console.log("INSERT LABEL:: ==========>>");
             console.log("strSql :: " + strSql);
-            
-			console.log(results);
-			
-            res.status(200).send(arrMemoCount);
+
+			res.location(req.baseUrl).end();
 
             connection.release();
-            
-            // Don't use the connection here, it has been returned to the pool.
+
         });
 		
 	});

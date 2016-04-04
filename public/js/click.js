@@ -140,45 +140,72 @@ function clickLabel(label_id)
 	});
 }
 
-
-
+// 새 라벨 추가
 function addLabelClick(inputLabel) {
     $.ajax({
-        url: 'memo',
+        url: 'memo/addNewLabel',
         data: {'inputLabel' : inputLabel},
-        dataType: 'json',
+        // dataType: 'json',
         type: 'POST',
-        success: function(data) {
+        success: function() {
             
-            console.log(data.length);
-            var index = Number(data.length)-1;
+            //var jsonData = JSON.stringify(memoCount);
+            //var jsonParse = JSON.parse(jsonData);
+            
+            //alert("insert label!!!!!!" + jsonData);
+
+            //var index = Number(memoCount.length)-1;
             // console.log("sssss");
             $("#labelModal").modal('hide');
-            var indexValue = $("#labelTab li").last().val();
-            console.log(indexValue);
+            var lastLabelValue = $("#labelTab li").last().val();
+            console.log(lastLabelValue);
             
-            $("#labelTab").append("<li><label>"+data[index].MEMO_CNT+"</label>"
+            $("#labelTab").append("<li><label>0</label>"
                                     +"<div>"+inputLabel+"</div>"
                                     +"</li>");
-            $("#labelTab li").addClass("list-group-item");
-            $("#labelTab li").last().attr("value", indexValue+1);
+            var labelClickIndex = $('#labelList ul li').index(this);
+            
+            $("#labelTab li").removeClass('selected');
+            $("#labelTab li:eq("+labelClickIndex+")").addClass("list-group-item selected");
+            $("#labelTab li").last().attr("value", lastLabelValue+1);
             $("#labelTab label").addClass("badge");
+            
+            // 메모탭에는 메모 없다고 알림
+            var forCount = $("#memoTab").children().length;
+            var list = document.getElementById("memoTab");
+            while (list.hasChildNodes()) {
+              list.removeChild(list.firstChild);
+            }
+            
+            $("#selectLabel").text(inputLabel);
+            
+            $("#memoTab").append("<div>메모가 없어요~</div>");
+            $("#memoTab div").addClass("text-center");
+            
+            $("#memoTitle").text("");
+            $("#memo_content").text("새로운 메모를 등록해주세요.");
+            $("#memoUpdateDate").text("최근 수정일 :  ");
             
             // 다시 이벤트 줌
             $('#labelList ul li').click(function() {
-          
-                labelClickIndex = $('#labelList ul li').index(this);
-                //$("#labelList ul li:eq(3)").val()
                 
+                var labelClickIndex = $('#labelList ul li').index(this);
                 var labelText = $("#labelList ul li:eq("+labelClickIndex+") div").text();
                 $("#selectLabel").text(labelText);
                 
-                labelID = $("#labelList ul li:eq("+labelClickIndex+")").val();
+                if(labelClickIndex==0) {  // 전체메모
+                    allMemoView();
+                } else {  // 라벨들
+                    var labelID = $("#labelList ul li:eq("+labelClickIndex+")").val();
+                    clickLabel(labelID);
+                }
                 $("li").removeClass('selected');
                 $(this).addClass('selected');
-                
-                clickLabel(labelID);
             });
+        
+        },
+        error: function(err) {
+            alert(err);
         }
 	});    
 }

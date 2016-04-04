@@ -16,8 +16,9 @@ var pool = mysql.createPool({
 router.get('/', function(req, res, next) {
 	pool.getConnection(function (err, connection) {
 	    if (err) console.error("err : " + err);
-	    
-		var strSql = ' SELECT * FROM TB_MEMO ORDER BY MEMO_ID ASC ';
+
+		var strSql = ' SELECT MEMO_ID, MEMO_TITLE, MEMO_CONTENT, DATE_FORMAT(MEMO_REG_DATE, \'%Y-%m-%d\') AS MEMO_REG_DATE, '
+		            + ' DATE_FORMAT(MEMO_UPDATE_DATE, \'%Y-%m-%d\') AS MEMO_UPDATE_DATE FROM TB_MEMO ORDER BY MEMO_ID ASC ';
 
         connection.query(strSql, function (err, rows) {
 			if (err) console.error("err : " + err);
