@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>MEMO Web Application</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+        <!-- Custom styles for this template -->
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" />
+
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="js/jquery.xdomainajax.js"></script>
+        <script src="js/xml2json.js"></script>
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script type="text/javascript">
+
+        (function($){
+            $(window).load(function(){
+                $("#labelList").mCustomScrollbar();
+            });
+        })(jQuery);
+
+        $(document).ready(function() {
+            $("#btnAddLabel").click(function(){
+                $('div.newLabelModal').modal();
+            });
+
+            $("#btnNewMemo").click(function(){
+                $('div.newMemoModal').modal();
+            });
+
+        });
+
+        </script>
+
+    </head>
+
+    <body>
+        <!-- header -->
+        <div class="page-header">
+            <h1>MEMO Web Application</h1>
+        </div>
+
+        <!-- body -->
+        <div id="appContent">
+
+            <!-- 라벨리스트 -->
+            <div id="labelArea">
+                <div id="labelList" class="mCustomScrollbar" data-mcs-theme="minimal-dark">
+                    <ul class="list-group" id="labelTab" role="tablist">
+                        <li class="list-group-item"><label class="badge">20</label>전체메모</li>
+                        <li class="list-group-item"><label class="badge">5</label>라벨 1</li>
+                        <li class="list-group-item"><label class="badge">5</label>라벨 2</li>
+                        <li class="list-group-item"><label class="badge">5</label>라벨 3</li>
+                        <li class="list-group-item"><label class="badge">5</label>라벨 4</li>
+                        <li class="list-group-item"><label class="badge">5</label>라벨 5</li>
+                        <li class="list-group-item"><label class="badge">5</label>라벨 6</li>
+                        <li class="list-group-item"><label class="badge">5</label>라벨 7</li>
+                        <li class="list-group-item"><label class="badge">5</label>라벨 8</li>
+                        <li class="list-group-item"><label class="badge">5</label>라벨 9</li>
+                        <li class="list-group-item"><label class="badge">5</label>라벨 10</li>
+                    </ul>
+                </div>
+                <div id="labelBtnArea">
+                    <button class="btn btn-primary" id="btnAddLabel">Add New Label</button>
+                    <button class="btn btn-primary">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </button>
+                </div>
+
+                <div class="modal fade newLabelModal">
+                    <div class="modal-dialog dialog-label">
+                        <div class="modal-content">
+                            <!-- addLabel.html -->
+                            <div class="modal-header">
+                                <a class="close" data-dismiss="modal">×</a>
+                                <h4>Add New Label</h4>
+                            </div>
+                            <div class="modal-body labelInput">
+                                <input type="text" placeholder="아무거나 입력…">
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-primary">Add</a>
+                                <a class="btn" data-dismiss="modal">Close</a>
+                            </div>
+                            <!-- addLabel.html  -END- -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 라벨리스트 END -->
+
+            <!-- 메모리스트 -->
+            <div id="memoArea">
+                <div id="labeleSet">       
+                    <label class="title">라벨 1</label>
+                    <div id="labelSetBtnArea">
+                        <button class="btn btn-primary" id="btnNewMemo">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                        <button class="btn btn-primary">
+                            <span class="glyphicon glyphicon-copy"></span>
+                        </button>
+                        <button class="btn btn-primary">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
+                </div>
+                <div id="memoList" class="mCustomScrollbar memoList" data-mcs-theme="minimal-dark">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <input type="checkbox"></input>
+                            <label class="list-group-item-heading">메모 1</label>
+                            <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+                            <div class="list-group-item-text memoPreview">내용 미리보기</div>
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox"></input>
+                            <label class="list-group-item-heading">메모 2</label>
+                            <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+                            <div class="list-group-item-text memoPreview">내용 미리보기</div>
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox"></input>
+                            <label class="list-group-item-heading">메모 3</label>
+                            <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+                            <div class="list-group-item-text memoPreview">내용 미리보기</div>
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox"></input>
+                            <label class="list-group-item-heading">메모 4</label>
+                            <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+                            <div class="list-group-item-text memoPreview">내용 미리보기</div>
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox"></input>
+                            <label class="list-group-item-heading">메모 5</label>
+                            <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+                            <div class="list-group-item-text memoPreview">내용 미리보기</div>
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox"></input>
+                            <label class="list-group-item-heading">메모 6</label>
+                            <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+                            <div class="list-group-item-text memoPreview">내용 미리보기</div>
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox"></input>
+                            <label class="list-group-item-heading">메모 7</label>
+                            <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+                            <div class="list-group-item-text memoPreview">내용 미리보기</div>
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox"></input>
+                            <label class="list-group-item-heading">메모 8</label>
+                            <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+                            <div class="list-group-item-text memoPreview">내용 미리보기</div>
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox"></input>
+                            <label class="list-group-item-heading">메모 9</label>
+                            <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+                            <div class="list-group-item-text memoPreview">내용 미리보기</div>
+                        </li>
+                        <li class="list-group-item">
+                            <input type="checkbox"></input>
+                            <label class="list-group-item-heading">메모 10</label>
+                            <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
+                            <div class="list-group-item-text memoPreview">내용 미리보기</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 새메모 쓰기 -->
+                <div class="modal fade newMemoModal">
+                    <div class="modal-dialog dialog-label">
+                        <div class="modal-content">
+                            <!-- addLabel.html -->
+                            <div class="modal-header">
+                                <a class="close" data-dismiss="modal">×</a>
+                                <h4>New Memo</h4>
+                            </div>
+                            <div class="modal-body memoTitle">
+                                <div id="memoTitle">
+                                    <input type="text" placeholder="Memo Title">
+                                </div>
+                                <input type="textarea" placeholder="textarea">
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-primary">Add</a>
+                                <a class="btn" data-dismiss="modal">Close</a>
+                            </div>
+                            <!-- addLabel.html  -END- -->
+                        </div>
+                    </div>
+                </div>
+                <!-- 새메모 쓰기 END -->
+
+            </div>
+            <!-- 메모리스트 END -->
+
+            <!-- 메모 세부내용 -->
+            <div id="memoDetailArea">
+                <div class="panel panel-default" id="memoDetail">
+                    <div class="panel-heading">
+                        <label class="title" id="memoTitle">메모 1</label>
+                        <label class="memoUpdateDate" id="memoUpdateDate">메모수정일 2016-03-29 10:29:11</label>
+                    </div>
+                    <div class="panel-body mCustomScrollbar" id="memo_content" data-mcs-theme="minimal-dark">
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                        <p>내용내용</p>
+                    </div>
+                    <div id="memoUpdateBtnArea">
+                        <button class="btn btn-primary" type="button">Edit</button>
+                        <button class="btn btn-primary" type="button">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <!-- 메모 세부내용 EMD-->
+        </div>
+    </body>
+</html>

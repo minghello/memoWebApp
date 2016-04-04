@@ -1,0 +1,92 @@
+express 설치/프로젝트 생성
+github
+package.json 파일 만들고..
+
+-------------------------
+
+view.. jade -> ejs로 변경
+bootstrap 넣고
+memo 메인 페이지.. 테스트
+
+-------------------------
+
+mysql .. 연결
+테스트
+
+-------------------------
+
+1번째 리스트는 라벨리스트니깐.. 
+라벨의 목록을 가져온다!
+보여지는 데이터는 라벨이름만 있으니,
+
+SELECT LABEL_NAME FROM TB_LABEL;
+
+로 가져오고..
+
+-------------------------
+
+2번째 리스트는 그 라벨(라벨1)에 들어있는 메모들이니깐..
+메모 테이블에서 메모제목을 가져와라 
+SELECT MEMO_TITLE FROM TB_MEMO
+
+근데..라벨_메모 테이블에서 라벨 1인 메모 아이디들의 제목들만 가져와야되
+먼저..라벨_메모 테이블에서 라벨 1인 메모아이디 는?
+SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID=1
+
+>> SELECT M.MEMO_TITLE FROM TB_MEMO M, 
+(SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID=1) LM
+WHERE M.MEMO_ID = LM.MEMO_ID;
+
+화면에 ..
+
+-------------------------
+
+라벨 리스트 뿌리고..
+클릭하면 
+라벨 인덱스(라벨 아이디)에 해당하는 메모들을 뿌린다..
+메모들... 순서대로
+
+
+
+
+라벨 리스트 뿌리고
+select label_name from tb_label
+> 라벨을 누른다..
+label.click하면.. memo?test?
+> 라벨인덱스(아이디)값을 찾기 
+$(라벨).inded(this)    ex) 0,1,2,...
+> 메모 찾기..
+select M.MEMO_TITLE, M.MEMO_TITLE, M.MEMO_REGDATE from TB_MEMO M, 
+(SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID = ? ) LM
+where M.MEMO_ID = LM.MEMO_ID;
+
+메모 상세내용 뿌려야되니까. 다 검색
+타이틀 
+내용
+수정일
+
+> memoTab 위치에 ...순서대로 
+
+-------------------------
+메모제목이 ... 
+메모아이디로도 찾아야함.. 
+
+TB_LABEL
+TB_LABEL_MEMO
+TB_MEMO
+
+라벨1 에서.. 메모를 추가할때...
+
+메모를 작성하면.. 메모테이블에 저장
+> 그 메모아이디를 TB_LABEL_MEMO 에 저장..
+
+쿼리문 어떻게..?
+한번에 되나? 순서대로?
+
+-------------------------
+
+화면 수정..
+
+제대로 기능정의가 되지 않음.. 반복작업 ..
+
+에드 뉴 라벨 눌렀을 때.. 창.
