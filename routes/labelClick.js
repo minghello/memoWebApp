@@ -16,28 +16,24 @@ var pool = mysql.createPool({
 router.get('/', function(req, res, next) {
 	pool.getConnection(function (err, connection) {
 
-		var labelID='';
+		var label_id='';
 		var strSql='';
 
-		labelID = req.query.label_id; // 클릭한 라벨의 인덱스 - 0, 1, 2, ... 
+		label_id = req.query.label_id;
 
-		strSql = ' SELECT M.MEMO_ID, M.MEMO_TITLE, M.MEMO_CONTENT, M.MEMO_REG_DATE '
-				+ ' FROM TB_MEMO M, '
-		 		+ ' (SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID = ' + Number(labelID) + ' ) LM '	// 라벨인덱스를 숫자로 바꾸고..
-		 		+ ' WHERE M.MEMO_ID = LM.MEMO_ID';
+		strSql = ' SELECT DISTINCT M.MEMO_ID, M.MEMO_TITLE, M.MEMO_CONTENT, DATE_FORMAT(MEMO_REG_DATE, \'%Y-%m-%d\') AS MEMO_REG_DATE'
+				+ ' , DATE_FORMAT(MEMO_UPDATE_DATE, \'%Y-%m-%d\') AS MEMO_UPDATE_DATE FROM TB_MEMO M, '
+				+ ' (SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID = ? ) LM WHERE M.MEMO_ID = LM.MEMO_ID ';
 
-        connection.query(strSql, function (err, rows) {
+        connection.query(strSql, label_id, function (err, rows) {
 			if (err) console.error("err : " + err);
             console.log("메모 목록 ==========>>");
             console.log("strSql :: " + strSql);
             console.log("memo list :: " + JSON.stringify(rows));
-
-			//res.send('야!!!!!!!!!!' + rows[0].MEMO_TITLE);
+            
 			res.send(rows);
-
+			
             connection.release();
-
-            // Don't use the connection here, it has been returned to the pool.
         });
 		
 	});
