@@ -3,7 +3,10 @@
 	height: 500px;
 	margin: auto;
 	color: #5F5F5F;
+<<<<<<< HEAD
 	border-bottom: 1px solid #ddd;
+=======
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
 }
 
 /* label 영역 */
@@ -13,12 +16,20 @@
 	height: 500px;
 	
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
 #labelList {
 	width: inherit;
 	height: 450px;
 	border: 1px solid #ddd;
 	border-bottom: 0px;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
 #labelBtnArea {
 	width: inherit;
 	height: 50px;
@@ -27,6 +38,7 @@
     vertical-align: middle;
     display: table-cell;
 }
+<<<<<<< HEAD
 .dialog-label {
 	position: fixed;
     top: 30%;
@@ -35,6 +47,8 @@
 }
 
 
+=======
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
 
 /* memo 영역 */
 #labeleSet {
@@ -47,6 +61,10 @@
 	vertical-align: middle;
     display: table-cell;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
 #labeleSet>label {
 	position: relative;
     top: 7px;
@@ -61,11 +79,26 @@
 #memoList {
 	width: inherit;
 	height: 450px;
+<<<<<<< HEAD
 	border-bottom: 1px solid #ddd;
 }
 #memoArea {
 	float: left;
 	width: 300px;
+=======
+}
+
+
+
+.memoList {
+	border-bottom: 1px solid #ddd;
+}
+
+#memoArea {
+	float: left;
+	width: 300px;
+
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
 }
 
 
@@ -127,7 +160,11 @@
 }
 
 .list-group-item:last-child {
+<<<<<<< HEAD
 	/*border-bottom: 1px solid #ddd !important;*/
+=======
+	border-bottom: 0px solid #ddd !important;
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
 }
 
 .panel {
@@ -182,6 +219,7 @@
 input[type=checkbox] {
     margin-right: 5px;
     margin-top: 1px\9;
+<<<<<<< HEAD
     line-height: normal;
 }
 /* modal-dialog */
@@ -215,3 +253,6 @@ input[type=checkbox] {
     top: 5px;
     right: 5px;
 }
+=======
+    line-height: normal;
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4

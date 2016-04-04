@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 function allMemoView() {
     $.ajax({
         url: 'test',
@@ -48,10 +49,13 @@ function allMemoView() {
 	});
 }
 
+=======
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
 // 라벨을 클릭했을 때..
 function clickLabel(click_LabelID)
 {
 	
+<<<<<<< HEAD
     $.ajax({
         url: 'memo_proc',
         data: {'label_id' : click_LabelID},
@@ -64,6 +68,20 @@ function clickLabel(click_LabelID)
             while (list.hasChildNodes()) {
               list.removeChild(list.firstChild);
             }
+=======
+        $.ajax({
+            url: 'memo_proc',
+            data: {'label_id' : click_LabelID},
+            dataType: 'json',
+            type: 'GET',
+            success: function(data) {
+
+                var forCount = $("#memoTab").children().length;
+                var list = document.getElementById("memoTab");
+                while (list.hasChildNodes()) {
+                  list.removeChild(list.firstChild);
+                }
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
 
     
             var memoCount = data.length;
@@ -73,6 +91,7 @@ function clickLabel(click_LabelID)
 
             var memoID ='';
             for(var i=0;i<memoCount;i++) {
+<<<<<<< HEAD
                 $("#memoTab").append("<li>"
                                     +"<input></input>"
                                     +"<label>"+data[i].MEMO_TITLE+"</label>"
@@ -85,6 +104,11 @@ function clickLabel(click_LabelID)
                 $("#memoTab li > label").addClass("list-group-item-heading");
                 $("#memoTab div").addClass("list-group-item-heading");
                 
+=======
+                $("#memoTab").append("<li>"+data[i].MEMO_TITLE+"</li>");
+                memoID = data[i].MEMO_ID;
+
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
                 $('#memoList ul li').click(function() {
                     var memoTabIndex = $('#memoList ul li').index(this);
                     clickMemo(click_LabelID ,memoID);
@@ -96,6 +120,10 @@ function clickLabel(click_LabelID)
                 //node.appendChild(textnode);                              // Append the text to <li>
                 //document.getElementById("memoTab").appendChild(node);     // Append <li> to <ul> with id="myList"
             }
+<<<<<<< HEAD
+=======
+            $("#memoTab li").addClass("list-group-item");
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
         }
 	});
 }

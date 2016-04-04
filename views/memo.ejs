@@ -33,10 +33,15 @@
         var labelClickIndex = '';
         var labelID = $("#labelList ul li:eq(1)").val();
         
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
         $('#labelList ul li').click(function() {
           
             labelClickIndex = $('#labelList ul li').index(this);
             //$("#labelList ul li:eq(3)").val()
+<<<<<<< HEAD
             console.log("클릭인덱스 :: ")
             var labelText = $("#labelList ul li:eq("+labelClickIndex+") div").text();
             $("#selectLabel").text(labelText);
@@ -56,6 +61,22 @@
         });
 
         // 메모 클릭했을 때...
+=======
+            
+            var labelText = $("#labelList ul li:eq("+labelClickIndex+") div").text();
+            $("#selectLabel").text(labelText);
+            
+            
+            labelID = $("#labelList ul li:eq("+labelClickIndex+")").val();
+            $("li").removeClass('selected');
+            $(this).addClass('selected');
+            
+            clickLabel(labelID);
+
+            alert("라벨 클릭함..." + "(label_id: "+labelID+")");
+        });
+
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
         $('#memoList ul li').click(function() {
             var memoClickIndex = $('#memoList ul li').index(this);
             clickMemo(labelID, memoClickIndex);
@@ -63,9 +84,16 @@
         }); 
         
         
+<<<<<<< HEAD
         
         
         // Add New Label 버튼
+=======
+        // Add New Label 버튼
+        // $("#btnAddLabel").click(function(){
+        //     $('div.labelModal').modal({remote : 'modalTest'});
+        // });
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
         $("#btnAddSubmit").click(function() {
             console.log("되라!!!!");
             var inputLabel = $.trim($("#inputLabel").val()); 
@@ -82,6 +110,7 @@
         
         
         // 새 메모 쓰기..
+<<<<<<< HEAD
         // $("#btnNewMemo").click(function(){
             
         //     // alert(" 라벨아이디 ?? :: " +labelID);
@@ -106,6 +135,17 @@
         });
         
 
+=======
+        $("#btnNewMemo").click(function(){
+            
+            // alert(" 라벨아이디 ?? :: " +labelID);
+            $('div.memoModal').modal({
+              remote : 'newMemo/'+labelID
+            });
+        });
+        
+        
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
       });
 
         
@@ -123,7 +163,11 @@
           <ul class="list-group" id="labelTab">
             <li class="list-group-item">
               <label class="badge"><%= memoCount %></label>
+<<<<<<< HEAD
               <div>전체메모</div>
+=======
+              전체메모
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
             </li>
             <% for(var i=0;i<arrLabel.length; i++) { 
               var labelList = arrLabel[i];
@@ -148,7 +192,11 @@
         <div id="labeleSet">       
           <label class="title" id="selectLabel"><%= arrLabel[0].LABEL_NAME %></label>
           <div id="memoBtnArea">
+<<<<<<< HEAD
             <button class="btn btn-primary glyphicon glyphicon-edit" id="btnNewMemo" data-toggle="modal" data-target="#memoModal"></button>
+=======
+            <button class="btn btn-primary glyphicon glyphicon-edit" id="btnNewMemo"></button>
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
             <button class="btn btn-primary glyphicon glyphicon-trash"></button>
           </div>
         </div>
@@ -202,6 +250,7 @@
           </div>
         </div>
       </div>
+<<<<<<< HEAD
       
       <!--새메모 모달-->
       <div class="modal fade memoModal" id="memoModal">
@@ -219,6 +268,13 @@
                 <button class="btn btn-primary" id="btnMemoReg">REG</button>
                 <button class="btn" data-dismiss="modal">Close</button>
             </div>
+=======
+      <!--새메모 모달-->
+      <div class="modal fade memoModal">
+        <div class="modal-dialog dialog-newMemo">
+          <div class="modal-content">
+            <!-- 모달 영역 -->
+>>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
           </div>
         </div>
       </div>
