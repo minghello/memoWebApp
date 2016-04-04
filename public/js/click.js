@@ -210,13 +210,51 @@ function addLabelClick(inputLabel) {
 	});    
 }
 
-function newMemoClick(labelID, inputTitle, inputContent) {
+function newMemoClick(label_id, input_title, input_content) {
     $.ajax({
-       url: 'newMemo',
-       data: {'labelID': labelID, 'inputTitle' : inputTitle, 'inputContent' : inputContent},
-       type: 'POST',
-       success: function() {
-           alert("메모 추가 완료!!");
-       }
+        url: 'memo/addNewMemo',
+        data: {'label_id': label_id, 'input_title' : input_title, 'input_content' : input_content},
+        type: 'POST',
+        success: function(newMemo) {
+            alert("메모 추가 완료!!");
+            $("#memoModal").modal('hide');
+            
+            var forCount = $("#memoTab").children().length;
+            var list = document.getElementById("memoTab");
+            while (list.hasChildNodes()) {
+              list.removeChild(list.firstChild);
+            }
+            
+            var memoCount = newMemo.length;
+            // 메모리스트 영역에 뿌려주고
+            for(var i=0; i<memoCount;i++) {
+                $("#memoTab").append("<li>"
+                                    +"<input></input>"
+                                    +"<label>"+newMemo[i].MEMO_TITLE+"</label>"
+                                    +"<label class=\"memoUpdateDate\">"+newMemo[i].MEMO_REG_DATE+"</label>"
+                                    +"<div>"+newMemo[i].MEMO_CONTENT+"</div>"
+                                    +"</li>");
+                $("#memoTab li:eq("+i+")").attr("value", newMemo[i].MEMO_ID);
+                $("#memoTab li").addClass("list-group-item");
+                $("#memoTab li > input").attr("type","checkbox");
+                $("#memoTab li > label").addClass("list-group-item-heading");
+                $("#memoTab div").addClass("list-group-item-text memoPreview");
+           }
+           
+            // 마지막 추가된 메모를.. 보여준다.
+            $("#memoTitle").text(newMemo[memoCount-1].MEMO_TITLE);
+            $("#memo_content").text(newMemo[memoCount-1].MEMO_CONTENT);
+            if(newMemo[0].MEMO_UPDATE_DATE != null) {
+                $("#memoUpdateDate").text("최근 수정일 :  "+newMemo[memoCount-1].MEMO_UPDATE_DATE);
+            } else {
+                $("#memoUpdateDate").text("최근 수정일 : 없음");
+            }
+            
+            // 라벨리스트에서 보이는 갯수의 숫자를 +1 해준다.
+            var badge = Number($("#labelList .selected label").text());
+            $("#labelList .selected label").text(badge+1);
+            
+            
+        }
     });
 }

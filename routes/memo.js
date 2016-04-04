@@ -15,6 +15,7 @@ var memoCount = '';
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	pool.getConnection(function (err, connection) {
+        if (err) console.error("err : " + err);
         
         var strSql = '';
         
@@ -93,17 +94,8 @@ router.get('/', function(req, res, next) {
 
 /* POST 호출 처리 */
 router.post('/addNewLabel', function(req, res, next) {
-    console.log('memo.js :::::::POST 방식으로 서버 호출됨');
-    
     pool.getConnection(function (err, connection) {
         if (err) console.error("err : " + err);
-		
-// 		console.log("path: "+req.path);
-// 		console.log("baseUrl: "+req.baseUrl);
-// 		console.log("originalUrl: "+req.originalUrl);
-		
-		//res.location(req.baseUrl).send(memoCount);
-		//console.log('memoCount'+JSON.stringify(memoCount));
 		
 		var inputLabel = "";
 		inputLabel=req.body.inputLabel;
@@ -120,11 +112,66 @@ router.post('/addNewLabel', function(req, res, next) {
 			res.location(req.baseUrl).end();
 
             connection.release();
-
         });
-		
 	});
+});
+
+router.post('/addNewMemo', function(req, res, next) {
+    pool.getConnection(function (err, connection) {
+        if (err) console.error("err : " + err);
+		
+		var label_id = req.body.label_id;
+		var input_title = req.body.input_title;
+		var input_content = req.body.input_content;
+		
+		console.log("label_id ::" +label_id);
+		console.log("input_title ::" +input_title);
+		console.log("input_content ::" +input_content);
+		
+		var strSql='';
+		// 먼저 메모테이블에 메모를 등록한다.
+        strSql = " INSERT INTO TB_MEMO (MEMO_TITLE, MEMO_CONTENT, MEMO_REG_DATE, MEMO_UPDATE_DATE) "
+                + " VALUES ( '"
+                + input_title + "', '"
+                + input_content
+                + "', SYSDATE(), NULL) ";
+		connection.query(strSql, function (err, results) {
+			if (err) console.error("err : " + err);
+			
+            console.log("INSERT MEMO ==========>>");
+            console.log("strSql :: " + strSql);
+            
+			//connection.release();
+        });
+        
+        // 라벨_메모 테이블에 메모의 라벨을 지정한다.
+        strSql = "INSERT INTO TB_LABEL_MEMO (LABEL_ID, MEMO_ID) VALUES "
+                + "( ?, (SELECT MEMO_ID FROM TB_MEMO ORDER BY MEMO_ID DESC LIMIT 1))";
+		 connection.query(strSql, label_id, function (err, results) {
+			if (err) console.error("err : " + err);
+            console.log("INSERT LABEL_MEMO ==========>>");
+            console.log("strSql :: " + strSql);
+			
+			//res.location(req.baseUrl).end();
+            //connection.release();
+        });
+            
+        // 입력한 메모의 정보를 다시 수집..
+        strSql = ' SELECT DISTINCT M.MEMO_ID, M.MEMO_TITLE, M.MEMO_CONTENT, DATE_FORMAT(MEMO_REG_DATE, \'%Y-%m-%d\') AS MEMO_REG_DATE'
+				+ ' , DATE_FORMAT(MEMO_UPDATE_DATE, \'%Y-%m-%d\') AS MEMO_UPDATE_DATE FROM TB_MEMO M, '
+				+ ' (SELECT MEMO_ID FROM TB_LABEL_MEMO WHERE LABEL_ID = ? ) LM WHERE M.MEMO_ID = LM.MEMO_ID ';
+        connection.query(strSql, label_id, function (err, newMemo) {
+            if (err) console.error("err : " + err);
+            
+            console.log("다시 그 라벨의 메모들 ==========>>");
+            console.log("strSql :: " + strSql);
+            console.log("label list :: " + JSON.stringify(newMemo));
+        
+            res.location(req.baseUrl).send(newMemo);
+            connection.release();
+        });
     
+	});
 });
 
 module.exports = router;
