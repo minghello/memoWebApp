@@ -11,6 +11,8 @@ var memo_proc = require('./routes/memo_proc');
 var test = require('./routes/test');
 var modalTest = require('./routes/modalTest');
 var newMemo = require('./routes/newMemo');
+var allMemoList = require('./routes/allMemoList');
+var memoClick = require('./routes/memoClick');
 
 var CORS = require('cors')();
 
@@ -37,6 +39,8 @@ app.use('/memo_proc', memo_proc);
 app.use('/test', test);
 app.use('/modalTest', modalTest);
 app.use('/newMemo', newMemo);
+app.use('/allMemoList', allMemoList); // 전체메모 가져올때
+app.use('/memoClick', memoClick); // 메모 클릭했을 때
 
 
 // catch 404 and forward to error handler

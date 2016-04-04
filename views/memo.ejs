@@ -24,59 +24,34 @@
             $("#labelList").mCustomScrollbar();
         });
         $(document).ready(function() {
-        
-        
+          
         //처음화면은 1번째 라벨의 1번째 메모를 보여줌..
         $("#labelList ul li:eq(1)").addClass('selected');
         
-        // 라벨을 클릭했을 때.. 
+        // 라벨을 클릭했을 때..
         var labelClickIndex = '';
         var labelID = $("#labelList ul li:eq(1)").val();
+        var labelText = '';
         
-<<<<<<< HEAD
-=======
-        
->>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
         $('#labelList ul li').click(function() {
-          
+            
             labelClickIndex = $('#labelList ul li').index(this);
-            //$("#labelList ul li:eq(3)").val()
-<<<<<<< HEAD
-            console.log("클릭인덱스 :: ")
-            var labelText = $("#labelList ul li:eq("+labelClickIndex+") div").text();
+            labelText = $("#labelList ul li:eq("+labelClickIndex+") div").text();
             $("#selectLabel").text(labelText);
             
-            if(labelClickIndex==0) {
-              alert("전체메모 클릭");
+            if(labelClickIndex==0) {  // 전체메모
               allMemoView();
-            } else {
+            } else {  // 라벨들
               labelID = $("#labelList ul li:eq("+labelClickIndex+")").val();
-              $("li").removeClass('selected');
-              $(this).addClass('selected');
-              
               clickLabel(labelID);
               alert("라벨 클릭함..." + "(label_id: "+labelID+")");
             }
+            $("li").removeClass('selected');
+            $(this).addClass('selected');
             
         });
 
         // 메모 클릭했을 때...
-=======
-            
-            var labelText = $("#labelList ul li:eq("+labelClickIndex+") div").text();
-            $("#selectLabel").text(labelText);
-            
-            
-            labelID = $("#labelList ul li:eq("+labelClickIndex+")").val();
-            $("li").removeClass('selected');
-            $(this).addClass('selected');
-            
-            clickLabel(labelID);
-
-            alert("라벨 클릭함..." + "(label_id: "+labelID+")");
-        });
-
->>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
         $('#memoList ul li').click(function() {
             var memoClickIndex = $('#memoList ul li').index(this);
             clickMemo(labelID, memoClickIndex);
@@ -84,16 +59,9 @@
         }); 
         
         
-<<<<<<< HEAD
         
         
         // Add New Label 버튼
-=======
-        // Add New Label 버튼
-        // $("#btnAddLabel").click(function(){
-        //     $('div.labelModal').modal({remote : 'modalTest'});
-        // });
->>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
         $("#btnAddSubmit").click(function() {
             console.log("되라!!!!");
             var inputLabel = $.trim($("#inputLabel").val()); 
@@ -110,7 +78,6 @@
         
         
         // 새 메모 쓰기..
-<<<<<<< HEAD
         // $("#btnNewMemo").click(function(){
             
         //     // alert(" 라벨아이디 ?? :: " +labelID);
@@ -135,17 +102,6 @@
         });
         
 
-=======
-        $("#btnNewMemo").click(function(){
-            
-            // alert(" 라벨아이디 ?? :: " +labelID);
-            $('div.memoModal').modal({
-              remote : 'newMemo/'+labelID
-            });
-        });
-        
-        
->>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
       });
 
         
@@ -162,18 +118,14 @@
         <div id="labelList" class="mCustomScrollbar" data-mcs-theme="minimal-dark">
           <ul class="list-group" id="labelTab">
             <li class="list-group-item">
-              <label class="badge"><%= memoCount %></label>
-<<<<<<< HEAD
+              <label class="badge"><%= allMemoCount %></label>
               <div>전체메모</div>
-=======
-              전체메모
->>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
             </li>
-            <% for(var i=0;i<arrLabel.length; i++) { 
-              var labelList = arrLabel[i];
+            <% for(var i=0;i<arrLabels.length; i++) { 
+              var labelList = arrLabels[i];
             %>
             <li class="list-group-item" value="<%= labelList.LABEL_ID %>">
-              <label class="badge"><%= arrMemoCount[i].MEMO_CNT %></label>
+              <label class="badge"><%= memoCount[i].MEMO_CNT %></label>
               <div><%= labelList.LABEL_NAME %></div>
             </li>
           <% } %>
@@ -190,27 +142,23 @@
       <div id="memoArea">
         <!-- 라벨 이름변경/설정/삭제 -->
         <div id="labeleSet">       
-          <label class="title" id="selectLabel"><%= arrLabel[0].LABEL_NAME %></label>
+          <label class="title" id="selectLabel"><%= arrLabels[0].LABEL_NAME %></label>
           <div id="memoBtnArea">
-<<<<<<< HEAD
             <button class="btn btn-primary glyphicon glyphicon-edit" id="btnNewMemo" data-toggle="modal" data-target="#memoModal"></button>
-=======
-            <button class="btn btn-primary glyphicon glyphicon-edit" id="btnNewMemo"></button>
->>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
             <button class="btn btn-primary glyphicon glyphicon-trash"></button>
           </div>
         </div>
 
         <div id="memoList" class="mCustomScrollbar memoList" data-mcs-theme="minimal-dark">
           <ul class="list-group" id="memoTab">
-          <% for(var i=0;i<arrFirstLabelMemo.length; i++) { 
-            var memoList = arrFirstLabelMemo[i];
+          <% for(var i=0;i<arrInit.length; i++) {
+            var memoList = arrInit[i];
           %>
             <li class="list-group-item">
               <input type="checkbox"></input>
               <label class="list-group-item-heading"><%= memoList.MEMO_TITLE %></label>
-              <label class="memoUpdateDate list-group-item-heading">2016-03-29 10:29:11</label>
-              <div class="list-group-item-text memoPreview">내용 미리보기</div>
+              <label class="memoUpdateDate list-group-item-heading"><%= memoList.MEMO_REG_DATE %></label>
+              <div class="list-group-item-text memoPreview"><%= memoList.MEMO_CONTENT %></div>
             </li>
           <% } %>
           </ul>
@@ -220,11 +168,17 @@
       <div id="memoDetailArea">
         <div class="panel panel-default" id="memoDetail">
           <div class="panel-heading">
-            <label class="title" id="memoTitle"></label>
-            <label class="memoUpdateDate" id="memoUpdateDate">메모수정일</label>
+            <% if(arrInit == null) { 
+                arrInit[0].MEMO_TITLE = '';
+                arrInit[0].MEMO_UPDATE_DATE = '없음';
+                arrInit[0].MEMO_CONTENT = '';
+              }
+            %>
+            <label class="title" id="memoTitle"><%= arrInit[0].MEMO_TITLE %></label>
+            <label class="memoUpdateDate" id="memoUpdateDate">최근 수정일 : <%= arrInit[0].MEMO_UPDATE_DATE %></label>
           </div>
           <div class="panel-body mCustomScrollbar" id="memo_content" data-mcs-theme="minimal-dark">
-            <p></p>
+          <%= arrInit[0].MEMO_CONTENT %>
           </div>
           <div id="memoUpdateBtnArea">
             <button class="btn btn-primary" type="button">Edit</button>
@@ -250,7 +204,6 @@
           </div>
         </div>
       </div>
-<<<<<<< HEAD
       
       <!--새메모 모달-->
       <div class="modal fade memoModal" id="memoModal">
@@ -268,13 +221,6 @@
                 <button class="btn btn-primary" id="btnMemoReg">REG</button>
                 <button class="btn" data-dismiss="modal">Close</button>
             </div>
-=======
-      <!--새메모 모달-->
-      <div class="modal fade memoModal">
-        <div class="modal-dialog dialog-newMemo">
-          <div class="modal-content">
-            <!-- 모달 영역 -->
->>>>>>> 7f0697860b9cff32538ebe1c70a9045d13fa25c4
           </div>
         </div>
       </div>

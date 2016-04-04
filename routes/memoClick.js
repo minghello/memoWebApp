@@ -15,27 +15,24 @@ var pool = mysql.createPool({
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 	pool.getConnection(function (err, connection) {
+	    if (err) console.error("err : " + err);
+	    
+	    var memo_id = req.query.memo_id;
+		var strSql = ' SELECT MEMO_TITLE, MEMO_CONTENT, DATE_FORMAT(MEMO_UPDATE_DATE, \'%Y-%m-%d\') AS MEMO_UPDATE_DATE'
+		            + ' FROM TB_MEMO WHERE MEMO_ID = ? ';
 
-		var strSql='';
-
-		strSql = ' SELECT MEMO_TITLE, MEMO_CONTENT, MEMO_REG_DATE '
-				+ ' FROM TB_MEMO ORDER BY MEMO_ID ASC';
-
-        connection.query(strSql, function (err, rows) {
+        connection.query(strSql, memo_id, function (err, result) {
 			if (err) console.error("err : " + err);
-            console.log("전체 메모 목록 ==========>>");
+			
+            console.log("클릭한 메모의 상세내용 ==========>>");
             console.log("strSql :: " + strSql);
-            console.log("memo all :: " + JSON.stringify(rows));
-
-			res.send(rows);
+            console.log("memo detail :: " + JSON.stringify(result));
+            
+            res.send(result);
 
             connection.release();
-
-            // Don't use the connection here, it has been returned to the pool.
         });
-		
 	});
-    
 });
 
 /* POST 호출 처리 */
