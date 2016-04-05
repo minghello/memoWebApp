@@ -56,6 +56,7 @@
 #memoList {
 	width: inherit;
 	height: 450px;
+	border-bottom: 1px solid #ddd;
 }
 #memoArea {
 	float: left;
@@ -74,12 +75,16 @@
 	width: 500px;
 }
 
-#memoUpdateBtnArea {
+.memoUpdateBtnArea {
 	width: inherit;
 	height: 49px;
 	vertical-align: middle;
     display: table-cell;
     padding-left: 10px;
+}
+
+.memoOK {
+	display: none;
 }
 
 #memoUpdateDate {
@@ -88,12 +93,17 @@
 
 #memoTitle {
 	margin-top: 4px;
+	background: #FF9090;
+	border: none;
+	width: 260px;
 }
 .memoUpdateDate {
 	float: right;
 	font-weight: initial;
     font-size: smaller;
-
+}
+#memoUpdateDate {
+	width: 190px;
 }
 
 .memoPreview {
@@ -107,9 +117,14 @@
 }
 
 /* 선택했을때.. */
-li.selected {
+.active {
+	background-color: #FFC5C5 !important; 
+	border-color: #FFC5C5 !important;
+	z-index: 1 !important;
 	font-weight: bold;
-	font-size: larger;
+}
+.list-group-item.active>.badge {
+	color: #FF9090;
 }
 
 /* bootstrap override */
@@ -127,6 +142,10 @@ li.selected {
 
 .list-group-item:last-child {
 	/*border-bottom: 1px solid #ddd !important;*/
+}
+
+.list-group-item.active .list-group-item-text {
+	color: #FFFFFF;
 }
 
 .panel {
@@ -219,9 +238,6 @@ input[type=checkbox] {
 	height: 40px;
     padding: 0px;
     padding-left: 20px;
-}
-.modal-body {
-
 }
 .modal-body input {
 	border: none;

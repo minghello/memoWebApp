@@ -13,6 +13,8 @@ function allMemoView() {
               list.removeChild(list.firstChild);
             }
             
+            
+            
             // 메모리스트 영역에 뿌려주고
             for(var i=0; i<allMemoCount;i++) {
                 $("#memoTab").append("<li>"
@@ -59,7 +61,7 @@ function clickMemo(memo_id) {
         dataType: 'json',
         type: 'GET',
         success: function(memo_detail) {
-            
+
             $("#memoTitle").text(memo_detail[0].MEMO_TITLE);
             $("#memo_content").text(memo_detail[0].MEMO_CONTENT);
             if(memo_detail[0].MEMO_UPDATE_DATE != null) {
@@ -89,7 +91,9 @@ function clickLabel(label_id)
             while (list.hasChildNodes()) {
               list.removeChild(list.firstChild);
             }
-
+            
+            
+            
             var memoCount = labels.length;
             //alert(data.length);
             //console.log("memoTitle :::  "+ data[0].MEMO_TITLE);
@@ -104,6 +108,7 @@ function clickLabel(label_id)
             } else {
                 var memoID ='';
                 // 메모리스트 영역에 뿌려주고
+
                 for(var i=0; i<memoCount;i++) {
                     $("#memoTab").append("<li>"
                                         +"<input></input>"
@@ -165,8 +170,8 @@ function addLabelClick(inputLabel) {
                                     +"</li>");
             var labelClickIndex = $('#labelList ul li').index(this);
             
-            $("#labelTab li").removeClass('selected');
-            $("#labelTab li:eq("+labelClickIndex+")").addClass("list-group-item selected");
+            $("#labelTab li").removeClass('active');
+            $("#labelTab li:eq("+labelClickIndex+")").addClass("list-group-item active");
             $("#labelTab li").last().attr("value", lastLabelValue+1);
             $("#labelTab label").addClass("badge");
             
@@ -199,10 +204,11 @@ function addLabelClick(inputLabel) {
                     var labelID = $("#labelList ul li:eq("+labelClickIndex+")").val();
                     clickLabel(labelID);
                 }
-                $("li").removeClass('selected');
-                $(this).addClass('selected');
+                $("li").removeClass('active');
+                $(this).addClass('active');
             });
-        
+            
+            $("#inputLabel").val("");
         },
         error: function(err) {
             alert(err);
@@ -251,8 +257,8 @@ function newMemoClick(label_id, input_title, input_content) {
             }
             
             // 라벨리스트에서 보이는 갯수의 숫자를 +1 해준다.
-            var badge = Number($("#labelList .selected label").text());
-            $("#labelList .selected label").text(badge+1);
+            var badge = Number($("#labelList .active label").text());
+            $("#labelList .active label").text(badge+1);
             
             
         }
