@@ -13,6 +13,15 @@ function allMemoView() {
               list.removeChild(list.firstChild);
             }
             
+            if(allMemoCount == 0) {
+                $("#memoTab").append("메모가 없어요~");
+                $("#memoTab").addClass("text-center");
+                
+                $("#memoTitle").text();
+                $("#memo_content").text();
+                $("#memoUpdateDate").text("최근 수정일 :  ");
+                
+            } else {
             
             
             // 메모리스트 영역에 뿌려주고
@@ -39,6 +48,7 @@ function allMemoView() {
                 $("#memoUpdateDate").text("최근 수정일 : 없음");
             }
             
+            }
             
             // 메모를 클릭하면
             $('#memoList ul li').click(function() {
@@ -154,16 +164,13 @@ function addLabelClick(inputLabel) {
         type: 'POST',
         success: function() {
             
-            //var jsonData = JSON.stringify(memoCount);
-            //var jsonParse = JSON.parse(jsonData);
-            
-            //alert("insert label!!!!!!" + jsonData);
-
-            //var index = Number(memoCount.length)-1;
-            // console.log("sssss");
             $("#labelModal").modal('hide');
             var lastLabelValue = $("#labelTab li").last().val();
             console.log(lastLabelValue);
+            
+            if(lastLabelValue == 0) {
+                $("#labelTab div").last().remove();
+            }
             
             $("#labelTab").append("<li><label>0</label>"
                                     +"<div>"+inputLabel+"</div>"
@@ -208,7 +215,9 @@ function addLabelClick(inputLabel) {
                 $(this).addClass('active');
             });
             
+            // 남아있는 input박스의 텍스트를 지워준다.
             $("#inputLabel").val("");
+            
         },
         error: function(err) {
             alert(err);
@@ -258,8 +267,9 @@ function newMemoClick(label_id, input_title, input_content) {
             
             // 라벨리스트에서 보이는 갯수의 숫자를 +1 해준다.
             var badge = Number($("#labelList .active label").text());
+            var allMemoBadge = Number($("#labelList li:eq(0) label").text());
             $("#labelList .active label").text(badge+1);
-            
+            $("#labelList li:eq(0) label").text(allMemoBadge+1);
             
         }
     });

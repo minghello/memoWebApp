@@ -52,15 +52,14 @@
         
         // 메모들 클릭했을 때..
         $('#memoList ul li').click(function() {
-            var clickedIndex = $('#memoList ul li').index(this);
-            var memoClickID = $('#memoList ul li:eq('+clickedIndex+')').val(); // 클릭한 메모 li 태그의 value값이 메모아이디
-            clickMemo(memoClickID);
+            var clickedIndex = $('#memoList ul li').index(this);    // 클릭한 메모 li 태그의 value값이 메모아이디
+            var memoClickID = $('#memoList ul li:eq('+clickedIndex+')').val();
+            clickMemo(memoClickID)
         }); 
         
         
         // Add New Label 버튼
         $("#btnAddSubmit").click(function() {
-            // 남아있는 텍스트 지우고..
             
             var inputLabel = $.trim($("#inputLabel").val());
             if(inputLabel=="") {
@@ -90,11 +89,10 @@
           }
         });
         
-        // 메모 REG 버튼
         $("#btnMemoReg").click(function() {
           var input_title = $.trim($("#inputMemoTitle").val()); //입력한 메모 타이틀
           var input_content = $("#inputMemoContent").val(); // 입력한 메모내용
-          var label_id = $("#labelList .selected").val(); // 선택된 라벨의 아이디값
+          var label_id = $("#labelList .active").val(); // 선택된 라벨의 아이디값
           
           console.log("label_id :: " + label_id);
           console.log("title :: "+ input_title);
@@ -103,65 +101,6 @@
           newMemoClick(label_id, input_title, input_content);
         });
         
-        
-        //편집 시 텍스트 커서 마지막에 위치하도록 하는 함수..
-        function placeCaretAtEnd(el) {
-            el.focus();
-            if (typeof window.getSelection != "undefined"
-                && typeof document.createRange != "undefined") {
-                var range = document.createRange();
-                range.selectNodeContents(el);
-                range.collapse(false);
-                var sel = window.getSelection();
-                sel.removeAllRanges();
-                sel.addRange(range);
-            } else if (typeof document.body.createTextRange != "undefined") {
-                var textRange = document.body.createTextRange();
-                textRange.moveToElementText(el);
-                textRange.collapse(false);
-                textRange.select();
-            }
-        }
-        
-        // 메모 Edit 버튼
-        $("#btnMemoEdit").click(function() {
-          
-          // 편집가능하게..
-          $("#memo_content").attr("contenteditable","true");
-          $("#memoTitle").attr("contenteditable","true");
-          $("#memoTitle").focus();
-          placeCaretAtEnd(document.getElementById("memoTitle"));
-          
-          // Edit, Delete 버튼은 숨기고 OK버튼으로 바꿔줌
-          $(".memoUpdate").css("display","none");
-          $(".memoOK").css("display","table-cell");
-          $(".memoOK").css("text-align","right");
-          $(".memoOK").css("padding-right","10px");
-        });
-        
-        // Edit 버튼
-        $("#btnMemoOK").click(function() {
-          alert("변경!!!");
-          
-          //memoEditOK()
-        });
-        
-        
-        // Delete 버튼
-        $("#btnMemoDelete").click(function() {
-          alert("정말 삭제해요??");
-          var clickedIndex = $('#memoList ul li').index(this);
-          var del_memo_id = $('#memoList ul li:eq('+clickedIndex+')').val(); // 클릭한 메모 li 태그의 value값이 메모아이디
-          
-          var del_label_id='';
-          
-          console.log("클릭한 인덱스.." + clickedIndex);
-          console.log("memo_id :: " + del_memo_id);
-          
-          
-          //memoDelete()
-        });
-
       });
 
         
@@ -181,14 +120,27 @@
               <label class="badge"><%= allMemoCount %></label>
               <div>전체메모</div>
             </li>
-            <% for(var i=0;i<arrLabels.length; i++) { 
-              var labelList = arrLabels[i];
+            <!-- 라벨이 없으면... 메시지 출력 -->
+            <%
+              if(arrLabels.length != 0) {
+                for(var i=0;i<arrLabels.length; i++) { 
+                  var labelList = arrLabels[i];
             %>
             <li class="list-group-item" value="<%= labelList.LABEL_ID %>">
               <label class="badge"><%= memoCount[i].MEMO_CNT %></label>
               <div><%= labelList.LABEL_NAME %></div>
             </li>
-          <% } %>
+            <%
+                }
+              } else {
+            %>
+            
+              <div>새로운 라벨을 추가해 주세요</div>
+            
+            <%
+              }
+            %>
+              
           </ul>
         </div>
         <div id="labelBtnArea">
@@ -201,18 +153,31 @@
 
       <div id="memoArea">
         <!-- 라벨 이름변경/설정/삭제 -->
-        <div id="labeleSet">       
+        <div id="labeleSet">
+          <%
+            if(arrLabels.length != 0) {
+          %>
           <label class="title" id="selectLabel"><%= arrLabels[0].LABEL_NAME %></label>
+          <% 
+            } else {
+          %>
+          <label class="title" id="selectLabel"></label>
+          <% 
+            }
+          %>
           <div id="memoBtnArea">
             <button class="btn btn-primary glyphicon glyphicon-pencil" id="btnNewMemo" data-toggle="modal" data-target="#memoModal"></button>
+            <button class="btn btn-primary glyphicon glyphicon-paste"></button>
             <button class="btn btn-primary glyphicon glyphicon-trash"></button>
           </div>
         </div>
 
         <div id="memoList" class="mCustomScrollbar memoList" data-mcs-theme="minimal-dark">
           <ul class="list-group" id="memoTab">
-          <% for(var i=0;i<arrInit.length; i++) {
-            var memoList = arrInit[i];
+          <%  
+            if (arrInit.length != 0 ) {
+              for(var i=0;i<arrInit.length; i++) {
+                var memoList = arrInit[i];
           %>
             <li class="list-group-item" value="<%= memoList.MEMO_ID %>">
               <input type="checkbox"></input>
@@ -220,7 +185,14 @@
               <label class="memoUpdateDate list-group-item-heading"><%= memoList.MEMO_REG_DATE %></label>
               <div class="list-group-item-text memoPreview"><%= memoList.MEMO_CONTENT %></div>
             </li>
-          <% } %>
+          <%
+              }
+            } else {
+          %>
+            <div class="text-center">메모가 없어요~</div>
+          <%
+            }
+          %>
           </ul>
         </div>
       </div>
@@ -228,24 +200,28 @@
       <div id="memoDetailArea">
         <div class="panel panel-default" id="memoDetail">
           <div class="panel-heading">
-            <% if(arrInit == null) { 
-                arrInit[0].MEMO_TITLE = '';
-                arrInit[0].MEMO_UPDATE_DATE = '없음';
-                arrInit[0].MEMO_CONTENT = '';
-              }
-            %>
+          <% 
+            if(arrInit.length != 0) { 
+          %>
             <label class="title" id="memoTitle"><%= arrInit[0].MEMO_TITLE %></label>
             <label class="memoUpdateDate" id="memoUpdateDate">최근 수정일 : <%= arrInit[0].MEMO_UPDATE_DATE %></label>
           </div>
           <div class="panel-body mCustomScrollbar" id="memo_content" data-mcs-theme="minimal-dark">
             <%= arrInit[0].MEMO_CONTENT %>
+          <% 
+            } else { 
+          %>
+            <label class="title" id="memoTitle"></label>
+            <label class="memoUpdateDate" id="memoUpdateDate">최근 수정일 : </label>
           </div>
-          <div class="memoUpdateBtnArea memoUpdate">
-            <button class="btn btn-primary" id="btnMemoEdit">Edit</button>
-            <button class="btn btn-primary" id="btnMemoDelete">Delete</button>
+          <div class="panel-body mCustomScrollbar" id="memo_content" data-mcs-theme="minimal-dark">
+          <% 
+            } 
+          %>
           </div>
-          <div class="memoUpdateBtnArea memoOK">
-            <button class="btn btn-primary" id="btnMemoOK">OK</button>
+          <div id="memoUpdateBtnArea">
+            <button class="btn btn-primary" type="button">Edit</button>
+            <button class="btn btn-primary" type="button">Delete</button>
           </div>
         </div>
       </div>

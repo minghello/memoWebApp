@@ -50,7 +50,7 @@
 }
 #memoBtnArea {
 	float: right;
-	width: 100px;
+	width: 140px;
 	text-align: center;
 }
 #memoList {
@@ -75,7 +75,7 @@
 	width: 500px;
 }
 
-.memoUpdateBtnArea {
+#memoUpdateBtnArea {
 	width: inherit;
 	height: 49px;
 	vertical-align: middle;

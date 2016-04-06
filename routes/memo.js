@@ -82,8 +82,9 @@ router.get('/', function(req, res, next) {
             console.log("label list :: " + JSON.stringify(rows));
 
             memoCount = rows;
-
-            res.render('memo', {'arrLabels': arrLabels, 'allMemoCount':allMemoCount, 'arrInit': arrInit, 'memoCount': memoCount});
+            
+            res.render('memo', 
+            {'arrLabels': arrLabels, 'allMemoCount':allMemoCount, 'arrInit': arrInit, 'memoCount': memoCount});
     
             connection.release();
 
