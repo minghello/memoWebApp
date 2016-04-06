@@ -135,7 +135,7 @@
               } else {
             %>
             
-              <div>새로운 라벨을 추가해 주세요</div>
+              <div class="text-center">새로운 라벨을 추가해 주세요</div>
             
             <%
               }
@@ -204,7 +204,17 @@
             if(arrInit.length != 0) { 
           %>
             <label class="title" id="memoTitle"><%= arrInit[0].MEMO_TITLE %></label>
-            <label class="memoUpdateDate" id="memoUpdateDate">최근 수정일 : <%= arrInit[0].MEMO_UPDATE_DATE %></label>
+            <label class="memoUpdateDate" id="memoUpdateDate">최근 수정일 : 
+            <%
+              if(arrInit[0].MEMO_UPDATE_DATE == null) {
+            %>
+            없음
+            <% } else { %>
+            <%= arrInit[0].MEMO_UPDATE_DATE %>
+            <%
+              }
+            %>
+            </label>
           </div>
           <div class="panel-body mCustomScrollbar" id="memo_content" data-mcs-theme="minimal-dark">
             <%= arrInit[0].MEMO_CONTENT %>

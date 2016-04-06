@@ -65,6 +65,10 @@
 
 
 /* 메모 컨텐트 */
+#selectLabel {
+	width: 160px;
+}
+
 #memoDetail {
 	width: inherit;
     display: table-cell;
