@@ -28,7 +28,9 @@
     display: table-cell;
 }
 
-
+#btnDelLabel {
+	display: none;
+}
 
 
 /* memo 영역 */
@@ -199,6 +201,10 @@
 .btn-primary {
 	background-color: #FF9090;
     border-color: #FF9090;
+}
+
+.glyphicon {
+	top: 0px !important;	
 }
 
 input[type=checkbox] {

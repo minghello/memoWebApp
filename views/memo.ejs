@@ -20,11 +20,20 @@
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/click.js"></script>
     <script type="text/javascript">
-        $(window).load(function(){
-            $("#labelList").mCustomScrollbar();
-        });
-        $(document).ready(function() {
-          
+      $(document).ready(function() {
+        // 스크롤바
+        $("#labelList").mCustomScrollbar();
+        
+        checkForHash();
+        // 해시 체크
+        function checkForHash() {
+          if(document.location.hash) {
+            var HashLocationName = document.location.hash;
+            HashLocationName = HashLocationName.replace("#", "");
+            $("#appContent").html(HashLocationName);
+          }
+        }
+        
         //처음화면은 1번째 라벨 선택됨
         $("#labelList ul li:eq(1)").addClass('active');
         
@@ -34,7 +43,6 @@
         var labelText = '';
         
         $('#labelList ul li').click(function() {
-            
             labelClickIndex = $('#labelList ul li').index(this);
             labelText = $("#labelList ul li:eq("+labelClickIndex+") div").text();
             $("#selectLabel").text(labelText);
@@ -52,9 +60,10 @@
         
         // 메모들 클릭했을 때..
         $('#memoList ul li').click(function() {
-            var clickedIndex = $('#memoList ul li').index(this);    // 클릭한 메모 li 태그의 value값이 메모아이디
             var memoClickID = $('#memoList ul li:eq('+clickedIndex+')').val();
-            clickMemo(memoClickID)
+            var clickedIndex = $('#memoList ul li').index(this);    // 클릭한 메모 li 태그의 value값이 메모아이디
+            
+            clickMemo(memoClickID);
         }); 
         
         
@@ -68,9 +77,7 @@
                 addLabelClick(inputLabel);
             }
         });
-        
 
-        
         // 새메모 버튼 눌렀을때
         $("#btnNewMemo").click(function() {
           // 남아있는 텍스트 지우고..
@@ -89,6 +96,7 @@
           }
         });
         
+        // Memo modal REG버튼 눌렀을 때...
         $("#btnMemoReg").click(function() {
           var input_title = $.trim($("#inputMemoTitle").val()); //입력한 메모 타이틀
           var input_content = $("#inputMemoContent").val(); // 입력한 메모내용
@@ -100,6 +108,27 @@
           
           newMemoClick(label_id, input_title, input_content);
         });
+        
+        $("#btnConfigLabel").click(function() {
+          console.log("라벨 설정하기 ..");
+          var notAllMemo = $("#labelList ul li").not($("#labelList ul li:eq(0)"));
+          notAllMemo.prepend("<input id='labelCheck' type='checkbox'>");
+          
+          $("#labelBtnArea button").hide();
+          $("#btnDelLabel").show();
+          $("#labelCheck").css("float","left");
+          
+          notAllMemo.dbclick(function () {
+            //alert("d");
+          });
+          
+        });
+        
+        
+        
+        
+        
+        
         
       });
 
@@ -144,10 +173,9 @@
           </ul>
         </div>
         <div id="labelBtnArea">
-          <!-- <a class="btn btn-primary" type="button" data-toggle="modal" data-target=".bs-example-modal-sm" href="modalTest">Small modal</a> -->
           <button class="btn btn-primary" type="button" id="btnAddLabel" data-toggle="modal" data-target="#labelModal">Add New Label</button>
-          <button class="btn btn-primary glyphicon glyphicon-cog" type="button">
-          </button>
+          <button class="btn btn-primary glyphicon glyphicon-cog" id="btnConfigLabel" type="button"></button>
+          <button class="btn btn-primary glyphicon glyphicon-trash" id="btnDelLabel" type="button"></button>
         </div>
         </div>
 
@@ -225,6 +253,7 @@
             <label class="memoUpdateDate" id="memoUpdateDate">최근 수정일 : </label>
           </div>
           <div class="panel-body mCustomScrollbar" id="memo_content" data-mcs-theme="minimal-dark">
+            새로운 메모를 등록해주세요.
           <% 
             } 
           %>

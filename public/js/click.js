@@ -5,6 +5,9 @@ function allMemoView() {
         dataType: 'json',
         type: 'GET',
         success: function(all_memo) {
+            
+            document.location.hash="#allMemoList";
+            
             var allMemoCount = all_memo.length;
             
             var forCount = $("#memoTab").children().length;
@@ -71,7 +74,9 @@ function clickMemo(memo_id) {
         dataType: 'json',
         type: 'GET',
         success: function(memo_detail) {
-
+            
+            document.location.hash="#memo_id"+memo_id;
+            
             $("#memoTitle").text(memo_detail[0].MEMO_TITLE);
             $("#memo_content").text(memo_detail[0].MEMO_CONTENT);
             if(memo_detail[0].MEMO_UPDATE_DATE != null) {
@@ -95,7 +100,9 @@ function clickLabel(label_id)
         dataType: 'json',
         type: 'GET',
         success: function(labels) {
-
+            
+            document.location.hash="#label_id"+label_id;
+            
             var forCount = $("#memoTab").children().length;
             var list = document.getElementById("memoTab");
             while (list.hasChildNodes()) {
